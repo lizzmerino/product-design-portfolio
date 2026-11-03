@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bancoli App — Liz Merino</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #0a0a0a; --white: #fff; --grey: #888; --light: #f5f5f5; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); }
+    nav .logo { font-size: 14px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: inherit; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
+    nav ul li a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.6; transition: opacity 0.2s; }
+    nav ul li a:hover { opacity: 1; }
+
+    /* BACK */
+    .back { display: inline-flex; align-items: center; gap: 8px; padding: 120px 48px 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--grey); transition: color 0.2s; }
+    .back:hover { color: var(--black); }
+    .back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+    /* HERO */
+    .hero { padding: 32px 48px 0; }
+    .hero-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+    .hero h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; margin-bottom: 48px; }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
+    .meta-value { font-size: 14px; }
+
+    /* INTRO */
+    .intro { padding: 0 48px 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-bottom: 1px solid #e8e8e8; }
+    .intro-role h2 { font-size: 22px; font-weight: 400; line-height: 1.4; margin-bottom: 16px; letter-spacing: -0.01em; }
+    .intro-role p { font-size: 15px; line-height: 1.7; color: var(--grey); }
+    .intro-details p { font-size: 15px; line-height: 1.7; color: var(--grey); }
+
+    /* SECTION */
+    .section { padding: 72px 48px; border-bottom: 1px solid #e8e8e8; }
+    .section-header { margin-bottom: 40px; }
+    .section-num { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 10px; }
+    .section-title { font-size: 32px; font-weight: 400; letter-spacing: -0.02em; }
+    .section-desc { margin-top: 12px; font-size: 15px; line-height: 1.65; color: var(--grey); max-width: 560px; }
+
+    /* SCREEN GRIDS */
+    .screens-full { display: flex; flex-direction: column; gap: 12px; }
+    .screens-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .screens-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .screen-card { display: flex; flex-direction: column; gap: 10px; cursor: zoom-in; }
+    .screen-card .img-wrap { overflow: hidden; border-radius: 6px; background: var(--light); position: relative; }
+    .screen-card .img-wrap img { width: 100%; display: block; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .screen-card:hover .img-wrap img { transform: scale(1.02); }
+    .screen-card .screen-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
+
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(5,10,20,0.96); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; flex-shrink: 0; }
+    .lb-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .lb-close { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .lb-close:hover { border-color: rgba(255,255,255,0.6); }
+    .lb-close svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 1.5; }
+    .lb-body { flex: 1; overflow-y: auto; padding: 0 48px 48px; display: flex; justify-content: center; align-items: flex-start; }
+    .lb-body img { max-width: 1200px; width: 100%; height: auto; border-radius: 6px; }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; display: flex; justify-content: space-between; }
+    footer span { font-size: 12px; color: var(--grey); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; } nav ul { gap: 24px; }
+      .back { padding: 100px 24px 0; }
+      .hero { padding: 24px 24px 0; }
+      .intro { padding: 0 24px 48px; grid-template-columns: 1fr; gap: 32px; }
+      .section { padding: 48px 24px; }
+      .screens-2col, .screens-3col { grid-template-columns: 1fr; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">Liz Merino</a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="cv.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <a class="back" href="bancoli.html">
+    <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Bancoli
+  </a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-label">Case Study</p>
+    <h1>App Design</h1>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Senior Product Designer</span></div>
+      <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2022 – Present</span></div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Fintech · B2B · SaaS</span></div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-role">
+      <h2>Designing the core product experience for a global B2B fintech platform.</h2>
+      <p>Placeholder — add your summary here. What was the product challenge, what did you own, and what was the outcome?</p>
+    </div>
+    <div class="intro-details">
+      <p>Placeholder — add context here. This could cover the team size, constraints, timeline, or any relevant technical/business background that shaped your design decisions.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: ONBOARDING -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">01 — Onboarding</p>
+      <h2 class="section-title">Sign-in & Verification</h2>
+      <p class="section-desc">Placeholder — describe the onboarding challenge. How did you simplify KYC, reduce drop-off, or communicate trust at the entry point?</p>
+    </div>
+    <div class="screens-2col">
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/sign-in.png', 'Sign in')">
+        <div class="img-wrap"><img src="img/bancoli/app/sign-in.png" alt="Sign in"></div>
+        <span class="screen-label">Sign in</span>
+      </div>
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/2fa.png', '2-Factor Authentication')">
+        <div class="img-wrap"><img src="img/bancoli/app/2fa.png" alt="2FA"></div>
+        <span class="screen-label">2-Factor Authentication</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: DASHBOARD -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">02 — Dashboard</p>
+      <h2 class="section-title">Main Overview</h2>
+      <p class="section-desc">Placeholder — describe the dashboard design decisions. What data did users need at a glance? How did you prioritize information hierarchy?</p>
+    </div>
+    <div class="screens-full">
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/dashboard.png', 'Dashboard')">
+        <div class="img-wrap"><img src="img/bancoli/app/dashboard.png" alt="Dashboard"></div>
+        <span class="screen-label">Dashboard</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: SMART ACCOUNT -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">03 — Smart Account</p>
+      <h2 class="section-title">Account & Transactions</h2>
+      <p class="section-desc">Placeholder — describe the account management flows. How did you handle multi-currency, transaction history, and transfer initiation?</p>
+    </div>
+    <div class="screens-2col">
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/smart-account.png', 'Smart Account')">
+        <div class="img-wrap"><img src="img/bancoli/app/smart-account.png" alt="Smart Account"></div>
+        <span class="screen-label">Smart Account</span>
+      </div>
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/deposits.png', 'Deposits & Transactions')">
+        <div class="img-wrap"><img src="img/bancoli/app/deposits.png" alt="Deposits"></div>
+        <span class="screen-label">Deposits & Transactions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: FEATURES -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">04 — Features</p>
+      <h2 class="section-title">Dynamic Discount Tools</h2>
+      <p class="section-desc">Placeholder — describe the feature design. How did you make complex financial instruments (early payment discounts, dynamic allocation) intuitive for non-finance users?</p>
+    </div>
+    <div class="screens-full">
+      <div class="screen-card" onclick="openLightbox('img/bancoli/app/discount-modal.png', 'Discount Date Range')">
+        <div class="img-wrap"><img src="img/bancoli/app/discount-modal.png" alt="Discount Modal"></div>
+        <span class="screen-label">Discount Date Range</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Liz Merino</span>
+    <span>Bancoli — App Design</span>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="if(event.target===this||event.target===document.querySelector('.lb-body'))closeLightbox()">
+    <div class="lb-bar">
+      <span class="lb-title" id="lbTitle"></span>
+      <button class="lb-close" onclick="closeLightbox()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="lb-body">
+      <img id="lbImg" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src, title) {
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbTitle').textContent = title;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+</body>
+</html>

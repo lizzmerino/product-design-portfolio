@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liz Merino — Product Designer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --grey: #888;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      mix-blend-mode: normal;
+    }
+
+    nav .logo {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+
+    nav ul li a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    nav ul li a:hover { opacity: 1; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 160px 48px 80px;
+      max-width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--grey);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    /* ─── WORK SECTION ─── */
+    #work {
+      padding: 20px 0 0;
+    }
+
+    /* ─── PROJECT GRID ─── */
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 24px;
+      padding: 0 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: default;
+    }
+
+    /* Image */
+    .project-right {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .project-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .project-right:hover img { transform: scale(1.04); }
+
+    .project-right .no-img {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #bbb;
+    }
+
+    /* Text row below image */
+    .project-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .project-info .project-name {
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      line-height: 1.2;
+    }
+
+    .project-info .project-tags {
+      margin-top: 4px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .project-arrow {
+      display: flex;
+      width: 32px; height: 32px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .project-arrow:hover { border-color: var(--black); background: var(--black); }
+    .project-arrow:hover svg { stroke: white; }
+
+    .project-arrow svg {
+      width: 13px; height: 13px;
+      fill: none; stroke: var(--black); stroke-width: 1.5;
+    }
+
+    /* ─── CONTACT SECTION ─── */
+    #contact {
+      padding: 100px 48px;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    #contact h2 {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 500px;
+    }
+
+    #contact h2 em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .contact-links a {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .contact-links a:hover { opacity: 1; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-size: 12px;
+      color: var(--grey);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      nav ul { gap: 24px; }
+
+      .hero { padding: 120px 24px 60px; }
+
+      .projects { grid-template-columns: 1fr; padding: 0 24px 60px; }
+      .project-left { padding: 20px 24px; }
+
+      #contact { padding: 60px 24px; }
+      .contact-links { align-items: flex-start; }
+
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">Liz Merino</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="cv.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Product Designer<br><em>with strong visual skills</em></h1>
+    <p>I design products people actually want to use — from fintech to digital wallets. Currently open to new opportunities.</p>
+  </header>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="projects">
+
+      <!-- Bancoli -->
+      <div class="project">
+        <div class="project-right" onclick="window.location.href='bancoli.html'">
+          <img src="img/bancoli/app/thumb-app.jpg" alt="Bancoli">
+        </div>
+        <div class="project-left">
+          <div class="project-info">
+            <div class="project-name">Bancoli</div>
+            <div class="project-tags">Fintech · B2B Banking · 2024 – Present</div>
+          </div>
+          <a class="project-arrow" href="bancoli.html">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Sulvo -->
+      <div class="project">
+        <div class="project-right" onclick="window.location.href='sulvo.html'">
+          <img src="img/sulvo/brand/cover.png" alt="Sulvo">
+        </div>
+        <div class="project-left">
+          <div class="project-info">
+            <div class="project-name">Sulvo</div>
+            <div class="project-tags">SaaS · Product Design · 2020–2021</div>
+          </div>
+          <a class="project-arrow" href="sulvo.html">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Relabe -->
+      <div class="project">
+        <div class="project-right" onclick="window.location.href='relabe-website.html'">
+          <img src="img/relabe/website/hero.jpg" alt="Relabe">
+        </div>
+        <div class="project-left">
+          <div class="project-info">
+            <div class="project-name">Relabe</div>
+            <div class="project-tags">Brand · Website · App · 2021–2023</div>
+          </div>
+          <a class="project-arrow" href="relabe-website.html">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Weex Wallet -->
+      <div class="project">
+        <div class="project-right" onclick="window.location.href='weex-app.html'">
+          <img src="img/weex/app/hero.jpg" alt="Weex Wallet">
+        </div>
+        <div class="project-left">
+          <div class="project-info">
+            <div class="project-name">Weex Wallet</div>
+            <div class="project-tags">Fintech · Mobile App · 2019</div>
+          </div>
+          <a class="project-arrow" href="weex-app.html">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Let's work<br><em>together</em></h2>
+    <div class="contact-links">
+      <a href="mailto:lizmerinoc@gmail.com">lizmerinoc@gmail.com</a>
+      <a href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Liz Merino</span>
+    <span>Product Designer</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bancoli KYC Onboarding — Liz Merino</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --white: #fff; --grey: #888;
+      --light: #f5f5f5; --border: #e8e8e8;
+      --accent: #1a2e5c;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); }
+    nav .logo { font-size: 14px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: inherit; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
+    nav ul li a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.6; transition: opacity 0.2s; }
+    nav ul li a:hover { opacity: 1; }
+
+    /* BACK */
+    .back { display: inline-flex; align-items: center; gap: 8px; padding: 120px 48px 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--grey); transition: color 0.2s; }
+    .back:hover { color: var(--black); }
+    .back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+    /* HERO */
+    .hero { padding: 32px 48px 56px; border-bottom: 1px solid var(--border); }
+    .hero-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
+    .meta-value { font-size: 14px; }
+
+    /* BODY LAYOUT */
+    .case-body { max-width: 1400px; }
+
+    /* TEXT SECTIONS */
+    .text-section { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 72px 48px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); padding-top: 4px; }
+    .section-content h2 { font-size: 28px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 20px; line-height: 1.3; }
+    .section-content p { font-size: 15px; line-height: 1.75; color: #444; max-width: 640px; }
+    .section-content p + p { margin-top: 16px; }
+
+    /* PLACEHOLDER IMAGES */
+    .img-section { padding: 72px 48px; border-bottom: 1px solid var(--border); }
+    .img-section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 32px; }
+
+    .placeholder { background: var(--light); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .placeholder span { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; }
+    .placeholder-full { width: 100%; height: 560px; }
+    .placeholder-half { width: 100%; height: 480px; }
+    .placeholder-third { width: 100%; height: 400px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .img-caption { font-size: 12px; color: var(--grey); margin-top: 10px; letter-spacing: 0.02em; }
+
+    /* CALLOUT */
+    .callout { margin: 0 48px; padding: 40px 48px; background: var(--accent); border-radius: 8px; }
+    .callout p { font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--white); letter-spacing: -0.01em; max-width: 700px; }
+
+    /* RESULT */
+    .result-section { padding: 72px 48px; border-bottom: 1px solid var(--border); }
+    .result-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 32px; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+    .result-item h3 { font-size: 42px; font-weight: 300; letter-spacing: -0.03em; color: var(--black); margin-bottom: 8px; }
+    .result-item p { font-size: 14px; line-height: 1.6; color: var(--grey); }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; display: flex; justify-content: space-between; }
+    footer span { font-size: 12px; color: var(--grey); }
+
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(5,10,20,0.96); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; flex-shrink: 0; }
+    .lb-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .lb-close { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .lb-close svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 1.5; }
+    .lb-body { flex: 1; overflow-y: auto; padding: 0 48px 48px; display: flex; justify-content: center; }
+    .lb-body img { max-width: 1200px; width: 100%; height: auto; border-radius: 6px; }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; } nav ul { gap: 24px; }
+      .back { padding: 100px 24px 0; }
+      .hero { padding: 24px 24px 48px; }
+      .text-section { grid-template-columns: 1fr; gap: 20px; padding: 48px 24px; }
+      .img-section { padding: 48px 24px; }
+      .callout { margin: 0 24px; padding: 32px 24px; }
+      .result-section { padding: 48px 24px; }
+      .result-grid { grid-template-columns: 1fr; gap: 32px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">Liz Merino</a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="cv.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <a class="back" href="bancoli.html">
+    <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Bancoli
+  </a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-label">Case Study</p>
+    <h1>KYC Onboarding</h1>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Senior Product Designer</span></div>
+      <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2022 – Present</span></div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Fintech · B2B · Compliance</span></div>
+    </div>
+  </div>
+
+  <div class="case-body">
+
+    <!-- CONTEXT -->
+    <div class="text-section">
+      <span class="section-label">Context</span>
+      <div class="section-content">
+        <h2>A fintech platform where onboarding is the only gate to revenue.</h2>
+        <p>Bancoli is a B2B fintech platform built for international trade finance — serving small businesses and solopreneurs who need to move money across borders. I joined as Senior Product Designer and owned the end-to-end UX of the onboarding experience.</p>
+      </div>
+    </div>
+
+    <!-- BEFORE: placeholder -->
+    <div class="img-section">
+      <p class="img-section-label">Before — Original flow</p>
+      <div class="placeholder placeholder-full">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        <span>Add before screenshot — long form view</span>
+      </div>
+      <p class="img-caption">The original long-form implementation — all fields visible at once, no sense of progress.</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="text-section">
+      <span class="section-label">The Problem</span>
+      <div class="section-content">
+        <h2>30+ required steps. No way to shorten them.</h2>
+        <p>To access Bancoli's financial services, every new user had to complete a KYC process before doing anything in the product. The flow covered business classification, company details, member information, identity verification, and document submission — over 30 steps in total.</p>
+        <p>The original implementation was a long-form experience. Users saw everything at once, had no sense of progress, and frequently dropped off before completing. For a product where onboarding is the only gate to revenue, that drop-off was a critical business problem.</p>
+      </div>
+    </div>
+
+    <!-- CALLOUT -->
+    <div class="callout">
+      <p>"The challenge wasn't what to ask — it was how to ask it."</p>
+    </div>
+
+    <!-- CONSTRAINT -->
+    <div class="text-section">
+      <span class="section-label">The Constraint</span>
+      <div class="section-content">
+        <h2>Every field existed because compliance required it.</h2>
+        <p>None of those 30+ steps could be removed. Working within a heavily regulated environment meant the design solution had to live entirely in the interaction layer — not in reducing scope. Any proposal had to be signed off by the compliance team before it could ship.</p>
+      </div>
+    </div>
+
+    <!-- APPROACH -->
+    <div class="text-section">
+      <span class="section-label">The Approach</span>
+      <div class="section-content">
+        <h2>One question at a time.</h2>
+        <p>Inspired by conversational UI patterns, the core idea was simple: instead of presenting the entire form at once, the interface would scroll to the next question automatically after each answer — keeping the user focused and the experience feeling fast even when it wasn't.</p>
+        <p>The flow was broken into clear chapters — business type, company information, member details, identity verification, and document upload — so users always knew where they were and what was coming. Users who self-identified as solopreneurs were routed through a shorter version of the company section, reducing unnecessary friction for that segment. The full experience was also designed for mobile, where the single-question pattern proved especially effective on smaller screens.</p>
+        <p>To reinforce a sense of forward momentum, we added a persistent progress bar throughout the flow — giving users a clear visual anchor of how far they'd come and what remained. The team also introduced a rewards mechanic that offered users incentives for completing each chapter, turning a compliance requirement into something closer to a goal-driven experience. Completion rates responded accordingly.</p>
+      </div>
+    </div>
+
+    <!-- PROGRESS + REWARDS placeholder -->
+    <div class="img-section">
+      <p class="img-section-label">Progress & Rewards</p>
+      <div class="grid-2">
+        <div>
+          <div class="placeholder placeholder-half">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><line x1="2" y1="12" x2="22" y2="12"/><polyline points="16 6 22 12 16 18"/></svg>
+            <span>Progress bar — mid flow</span>
+          </div>
+          <p class="img-caption">Persistent progress bar anchoring users through each chapter</p>
+        </div>
+        <div>
+          <div class="placeholder placeholder-half">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Rewards mechanic — chapter complete</span>
+          </div>
+          <p class="img-caption">Chapter completion rewards — turning compliance into a goal-driven experience</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW DIAGRAM placeholder -->
+    <div class="img-section">
+      <p class="img-section-label">Flow — Question by question</p>
+      <div class="placeholder placeholder-full">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><polyline points="12 8 12 12 14 14"/></svg>
+        <span>Add flow diagram — before vs. after</span>
+      </div>
+      <p class="img-caption">Conversational single-question flow vs. original long-form. Each answer triggers an auto-scroll to the next step.</p>
+    </div>
+
+    <!-- SCREENS: CHAPTERS -->
+    <div class="img-section">
+      <p class="img-section-label">Design — Flow chapters</p>
+      <div class="grid-3">
+        <div>
+          <div class="placeholder placeholder-third">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Business type selection</span>
+          </div>
+          <p class="img-caption">Step 1 — Business or solopreneur routing</p>
+        </div>
+        <div>
+          <div class="placeholder placeholder-third">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Company information</span>
+          </div>
+          <p class="img-caption">Step 2 — Company & member details</p>
+        </div>
+        <div>
+          <div class="placeholder placeholder-third">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Identity verification</span>
+          </div>
+          <p class="img-caption">Step 3 — KYC & document upload</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="img-section">
+      <p class="img-section-label">Mobile</p>
+      <div class="grid-2">
+        <div>
+          <div class="placeholder placeholder-half">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            <span>Mobile — single question view</span>
+          </div>
+          <p class="img-caption">Single-question layout on mobile</p>
+        </div>
+        <div>
+          <div class="placeholder placeholder-half">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            <span>Mobile — document upload</span>
+          </div>
+          <p class="img-caption">Document capture optimized for mobile camera</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-section">
+      <p class="result-label">The Result</p>
+      <div class="result-grid">
+        <div class="result-item">
+          <h3>30+</h3>
+          <p>Required steps redesigned into a conversational single-question flow — without removing a single compliance field.</p>
+        </div>
+        <div class="result-item">
+          <h3>↑</h3>
+          <p>Completion rates improved significantly post-launch across both business and solopreneur segments.</p>
+        </div>
+        <div class="result-item">
+          <h3>3 yrs</h3>
+          <p>The flow has been running in production with no structural redesign — in a regulated industry where most onboarding flows don't survive 18 months.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Liz Merino</span>
+    <span>Bancoli — KYC Onboarding</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lb-bar">
+      <span class="lb-title" id="lbTitle"></span>
+      <button class="lb-close" onclick="closeLightbox()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="lb-body">
+      <img id="lbImg" src="" alt="" onclick="event.stopPropagation()">
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src, title) {
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbTitle').textContent = title;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bancoli Discount Tool — Liz Merino</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #0a0a0a; --white: #fff; --grey: #888; --light: #f5f5f5; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); }
+    nav .logo { font-size: 14px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: inherit; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
+    nav ul li a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.6; transition: opacity 0.2s; }
+    nav ul li a:hover { opacity: 1; }
+
+    .back { display: inline-flex; align-items: center; gap: 8px; padding: 120px 48px 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--grey); transition: color 0.2s; }
+    .back:hover { color: var(--black); }
+    .back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+    .hero { padding: 32px 48px 0; }
+    .hero-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+    .hero h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; margin-bottom: 48px; }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
+    .meta-value { font-size: 14px; }
+
+    .intro { padding: 0 48px 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-bottom: 1px solid #e8e8e8; }
+    .intro-role h2 { font-size: 22px; font-weight: 400; line-height: 1.4; margin-bottom: 16px; letter-spacing: -0.01em; }
+    .intro-role p { font-size: 15px; line-height: 1.7; color: var(--grey); }
+    .intro-details p { font-size: 15px; line-height: 1.7; color: var(--grey); }
+
+    .section { padding: 72px 48px; border-bottom: 1px solid #e8e8e8; }
+    .section-header { margin-bottom: 40px; }
+    .section-num { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 10px; }
+    .section-title { font-size: 32px; font-weight: 400; letter-spacing: -0.02em; }
+    .section-body { margin-top: 20px; font-size: 15px; line-height: 1.75; color: var(--grey); max-width: 640px; }
+    .section-body p + p { margin-top: 16px; }
+
+    .callout { margin: 48px 0; padding: 32px 40px; background: #0a0a0a; border-radius: 4px; }
+    .callout p { font-size: 20px; font-weight: 300; line-height: 1.5; color: #fff; letter-spacing: -0.01em; }
+
+    .two-col-text { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 40px; }
+    .two-col-text p { font-size: 15px; line-height: 1.75; color: var(--grey); }
+
+    .screens-full { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+    .screens-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+
+    .screen-card { display: flex; flex-direction: column; gap: 10px; }
+    .screen-card .img-wrap { overflow: hidden; border-radius: 6px; background: var(--light); position: relative; }
+    .screen-card .img-wrap img { width: 100%; display: block; }
+    .screen-card .img-wrap.clickable { cursor: zoom-in; }
+    .screen-card .img-wrap.clickable img { transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .screen-card:hover .img-wrap.clickable img { transform: scale(1.02); }
+    .screen-card .screen-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
+
+    .gif-wrap { border-radius: 6px; overflow: hidden; background: var(--light); margin-top: 40px; }
+    .gif-wrap img { width: 100%; display: block; }
+    .gif-label { margin-top: 10px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
+
+    .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e8e8e8; margin-top: 56px; border-radius: 4px; overflow: hidden; }
+    .result-item { background: var(--white); padding: 40px 32px; }
+    .result-num { font-size: 48px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+    .result-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); line-height: 1.5; }
+
+    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(5,10,20,0.96); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; flex-shrink: 0; }
+    .lb-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .lb-close { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .lb-close:hover { border-color: rgba(255,255,255,0.6); }
+    .lb-close svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 1.5; }
+    .lb-body { flex: 1; overflow-y: auto; padding: 0 48px 48px; display: flex; justify-content: center; align-items: flex-start; }
+    .lb-body img { max-width: 1200px; width: 100%; height: auto; border-radius: 6px; }
+
+    footer { padding: 24px 48px; display: flex; justify-content: space-between; }
+    footer span { font-size: 12px; color: var(--grey); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; } nav ul { gap: 24px; }
+      .back { padding: 100px 24px 0; }
+      .hero { padding: 24px 24px 0; }
+      .intro { padding: 0 24px 48px; grid-template-columns: 1fr; gap: 32px; }
+      .section { padding: 48px 24px; }
+      .two-col-text { grid-template-columns: 1fr; gap: 24px; }
+      .screens-2col { grid-template-columns: 1fr; }
+      .results { grid-template-columns: 1fr; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">Liz Merino</a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="cv.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <a class="back" href="bancoli.html">
+    <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Bancoli
+  </a>
+
+  <div class="hero">
+    <p class="hero-label">Case Study</p>
+    <h1>Discount Tool</h1>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Senior Product Designer</span></div>
+      <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2023</span></div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Feature Design · Fintech</span></div>
+    </div>
+  </div>
+
+  <div class="intro">
+    <div class="intro-role">
+      <h2>Making early payment discounts feel intuitive — not like a spreadsheet.</h2>
+      <p>Bancoli's core value proposition for international B2B trade is dynamic discounting: sellers can incentivize buyers to pay invoices ahead of schedule in exchange for a discount. The challenge was making that mechanic feel natural in the flow of creating an invoice, without requiring users to understand the underlying financial logic.</p>
+    </div>
+    <div class="intro-details">
+      <p>This was designed almost from scratch. No existing pattern in invoicing tools handles date-based discount calculation quite this way — most tools offer a simple percentage field. Our approach ties the discount directly to timing, and the interface needed to make that relationship immediately legible to a seller who just wants to get paid.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: PROBLEM -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">01 — Problem</p>
+      <h2 class="section-title">A concept that didn't survive the form</h2>
+    </div>
+    <div class="two-col-text">
+      <p>The original discount entry was a pair of input fields — a percentage and a date. It was technically functional, but fell apart in internal testing. Users struggled to reason about what number to enter. The discount wasn't inherently about a percentage; it was about giving the buyer more time to pay early and rewarding them accordingly. The form abstracted that relationship away entirely.</p>
+      <p>The mental model users needed was: "if my buyer pays <em>this many days</em> before the due date, the system calculates what discount makes sense." Free-form percentage input forced sellers to do that math themselves — or guess. Both led to errors, inconsistency, and lack of confidence in the feature.</p>
+    </div>
+
+    <div class="callout">
+      <p>"The discount isn't a percentage you decide — it's a relationship between timing and value. The design had to make that visible."</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; margin-top:40px; gap:10px;">
+      <div class="img-wrap clickable" onclick="openLightbox('img/bancoli/app/discount-modal.png', 'Discount date range modal')" style="width:100%; max-width:560px; border-radius:6px; overflow:hidden; background:var(--light);">
+        <img src="img/bancoli/app/discount-modal.png" alt="Discount modal" style="width:100%; display:block;">
+      </div>
+      <span class="screen-label">Discount date range modal</span>
+    </div>
+  </div>
+
+  <!-- SECTION 2: APPROACH -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">02 — Approach</p>
+      <h2 class="section-title">Auto-calculate first, give control second</h2>
+    </div>
+    <div class="section-body">
+      <p>The redesign started by flipping the model: instead of asking sellers to input a discount percentage, the system calculates it automatically. When a seller sets an invoice issue date and due date, Bancoli computes a suggested early-payment discount — displayed immediately in the sidebar with a friendly prompt ("I suggest a discount of 1.97%"). No manual entry required for the default case.</p>
+      <p>But during internal testing, even with auto-calculation, users felt a loss of control. They wanted to understand how the number was generated and be able to adjust it. That tension led to the discount modal: a dedicated interface where the seller can see the relationship between days-early and discount percentage, with two sliders to manipulate both.</p>
+      <p>The top slider sets how many days early the buyer can pay. The system then calculates the corresponding discount percentage — anchored around a base rate of approximately 2% — and shows it on the second slider. Sellers can leave both at the suggested values or adjust them. The deadline date updates live as they move the slider, giving immediate temporal feedback.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; margin-top:40px; gap:10px;">
+      <div style="width:100%; max-width:700px; border-radius:6px; overflow:hidden; background:var(--light);">
+        <img src="img/bancoli/app/discount-slider.gif" alt="Discount slider interaction" style="width:100%; display:block;">
+      </div>
+      <span class="gif-label">Slider interaction — days early ↔ discount % relationship</span>
+    </div>
+  </div>
+
+  <!-- SECTION 3: OUTCOME -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-num">03 — Outcome</p>
+      <h2 class="section-title">Shipped as designed. Still running.</h2>
+    </div>
+    <div class="section-body">
+      <p>The feature launched and was adopted without friction. No significant support tickets related to the discount flow were raised post-launch — a meaningful signal for a financial feature with this level of conceptual novelty. The auto-suggestion handles the default case for most users; the modal gives power users the granularity they want.</p>
+      <p>Three years on, the discount tool remains one of Bancoli's differentiating features in the B2B invoicing space. The slider approach turned out to be the right abstraction: it makes the timing-value relationship visible without requiring users to understand the math underneath it.</p>
+    </div>
+
+    <div class="results">
+      <div class="result-item">
+        <div class="result-num">0</div>
+        <div class="result-label">Support tickets related to discount flow post-launch</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">↑</div>
+        <div class="result-label">Adoption over input fields in A/B testing</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">3 yrs</div>
+        <div class="result-label">Feature has run unchanged since launch</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Liz Merino</span>
+    <span>Bancoli — Discount Tool</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lb-bar">
+      <span class="lb-title" id="lbTitle"></span>
+      <button class="lb-close" onclick="closeLightbox()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="lb-body" onclick="closeLightbox()">
+      <img id="lbImg" src="" alt="" onclick="event.stopPropagation()">
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src, title) {
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbTitle').textContent = title;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+</body>
+</html>
