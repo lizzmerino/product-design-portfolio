@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relabe — Liz Merino</title>
+  <title>Relabe · Liz Merino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Volkhov:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --black: #0a0a0a; --white: #fff; --grey: #888; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; --blue: #4355f3; }
@@ -41,9 +43,9 @@
     .img-full img { width: 100%; max-width: 900px; display: block; border-radius: 6px; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
     .img-full:hover img { transform: scale(1.01); }
 
-    .gif-grid { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 900px; }
-    .gif-cell { background: #f5f5f5; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; }
-    .gif-cell img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .gif-grid { margin: 40px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; }
+    .gif-cell { background: #fff; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; }
+    .gif-cell img { max-width: 72%; max-height: 72%; width: auto; height: auto; object-fit: contain; display: block; }
 
     .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(5,10,20,0.96); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .lightbox.open { opacity: 1; pointer-events: all; }
@@ -67,6 +69,21 @@
       .gif-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
     }
+
+    /* Color swatches + type (same pattern as Sulvo) */
+    .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 40px; max-width: 900px; }
+    .swatches.three { grid-template-columns: repeat(3, 1fr); margin-top: 20px; }
+    .swatch { display: flex; flex-direction: column; gap: 10px; }
+    .swatch-color { aspect-ratio: 1; border-radius: 6px; }
+    .swatches.three .swatch-color { aspect-ratio: 3 / 1; }
+    .swatch-color.light { border: 1px solid #e6e9f0; }
+    .swatch-name { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--black); }
+    .swatch-hex { font-size: 11px; color: var(--grey); }
+    .type-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 48px; border-top: 1px solid #e8e8e8; padding-top: 40px; max-width: 900px; }
+    .type-item { display: flex; flex-direction: column; gap: 10px; }
+    .type-sample { font-size: 64px; line-height: 1; letter-spacing: -0.02em; color: #4a4a4a; }
+    .type-meta { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
+    @media (max-width: 768px) { .swatches { grid-template-columns: repeat(3, 1fr); } .type-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -76,7 +93,7 @@
     <ul>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="cv.pdf" target="_blank">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
 
@@ -99,17 +116,17 @@
       </div>
     </div>
     <div>
-      <p>Relabe is a digital platform where publishers can sell their ad revenue and get paid instantly — turning pending earnings into immediate cash flow.</p>
+      <p>Relabe is a digital platform where publishers can sell their ad revenue and get paid instantly, turning pending earnings into immediate cash flow.</p>
       <p>The challenge was to create Sulvo's sister brand: a payment system born from the same platform but built to stand on its own. Relabe needed to feel familiar enough to earn Sulvo publishers' trust, yet distinct enough to exist as an independent product.</p>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-num">01 — Brand</p>
+    <p class="section-num">01 · Brand</p>
     <h2 class="section-title">A brand with its own identity</h2>
     <div class="section-body">
-      <p>Starting from Sulvo's visual DNA, I developed a brand language for Relabe that shared structural DNA — the grid, the typeface approach, the confidence — while introducing a distinct blue-dominant palette and a softer, more approachable tone. Where Sulvo felt technical and authoritative, Relabe needed to feel trusted and immediate.</p>
-      <p>The wordmark uses a customized letterform with a macron over the "a" — a subtle typographic detail that gives the name a premium, fintech-grade feel without overdesigning it.</p>
+      <p>Starting from Sulvo's visual DNA, I developed a brand language for Relabe that shared structural DNA (the grid, the typeface approach, the confidence) while introducing a distinct blue-dominant palette and a softer, more approachable tone. Where Sulvo felt technical and authoritative, Relabe needed to feel trusted and immediate.</p>
+      <p>The wordmark uses a customized letterform with a macron over the "a", a subtle typographic detail that gives the name a premium, fintech-grade feel without overdesigning it.</p>
     </div>
     <div class="img-full" onclick="openLightbox('img/relabe/website/hero.jpg', 'Brand')">
       <img src="img/relabe/website/hero.jpg" alt="Relabe Brand">
@@ -117,22 +134,37 @@
   </div>
 
   <div class="section">
-    <p class="section-num">02 — Color &amp; Typography</p>
+    <p class="section-num">02 · Color &amp; Typography</p>
     <h2 class="section-title">Visual system</h2>
     <div class="section-body">
-      <p>The primary palette is anchored by a strong cobalt blue, complemented by light blue-greys and high-contrast dark tones. Secondary colors — green, orange, and yellow — serve functional roles across the UI: success states, warnings, and pending statuses.</p>
-      <p>Typography uses a geometric sans-serif at multiple weights. The pairing of thin display sizes with bold UI labels creates a clear hierarchy across both the marketing site and the platform.</p>
+      <p>The primary palette is anchored by a strong cobalt blue, complemented by light blue-greys and high-contrast dark tones. Secondary colors (green, orange and yellow) serve functional roles across the UI: success states, warnings, and pending statuses.</p>
+      <p>Typography pairs Open Sans, in bold and regular, for the interface with Volkhov, a serif, for display headlines. The contrast between the two creates a clear hierarchy across both the marketing site and the platform.</p>
     </div>
-    <div class="img-full" onclick="openLightbox('img/relabe/website/color_type.jpg', 'Color & Typography')">
-      <img src="img/relabe/website/color_type.jpg" alt="Color & Typography">
+    <div class="swatches">
+      <div class="swatch"><div class="swatch-color" style="background:#617AF6;"></div><span class="swatch-name">Relabe Blue</span><span class="swatch-hex">#617AF6</span></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D3DAFC;"></div><span class="swatch-name">Soft Blue</span><span class="swatch-hex">#D3DAFC</span></div>
+      <div class="swatch"><div class="swatch-color light" style="background:#EFF2FE;"></div><span class="swatch-name">Mist</span><span class="swatch-hex">#EFF2FE</span></div>
+      <div class="swatch"><div class="swatch-color light" style="background:#F6FBFE;"></div><span class="swatch-name">Ice</span><span class="swatch-hex">#F6FBFE</span></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4A4A4A;"></div><span class="swatch-name">Ink</span><span class="swatch-hex">#4A4A4A</span></div>
+      <div class="swatch"><div class="swatch-color" style="background:#9B9B9B;"></div><span class="swatch-name">Grey</span><span class="swatch-hex">#9B9B9B</span></div>
+    </div>
+    <div class="swatches three">
+      <div class="swatch"><div class="swatch-color" style="background:#69D24C;"></div><span class="swatch-name">Success</span><span class="swatch-hex">#69D24C</span></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FF6464;"></div><span class="swatch-name">Error</span><span class="swatch-hex">#FF6464</span></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FFB949;"></div><span class="swatch-name">Warning</span><span class="swatch-hex">#FFB949</span></div>
+    </div>
+    <div class="type-row">
+      <div class="type-item"><span class="type-sample" style="font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:700;">Aa</span><span class="type-meta">Open Sans · Bold</span></div>
+      <div class="type-item"><span class="type-sample" style="font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:400;">Aa</span><span class="type-meta">Open Sans · Regular</span></div>
+      <div class="type-item"><span class="type-sample" style="font-family:'Volkhov',Georgia,serif;font-weight:700;">Aa</span><span class="type-meta">Volkhov · Display</span></div>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-num">03 — Components</p>
+    <p class="section-num">03 · Components</p>
     <h2 class="section-title">UI Design system</h2>
     <div class="section-body">
-      <p>The component library covers the full spectrum of states the platform needs: buttons, inputs, warning banners, invoice status cards, and payment flows. Each component is designed to communicate financial status clearly — in-progress, paid, not yet payable — so users always know where they stand without reading fine print.</p>
+      <p>The component library covers the full spectrum of states the platform needs: buttons, inputs, warning banners, invoice status cards, and payment flows. Each component is designed to communicate financial status clearly (in progress, paid, not yet payable) so users always know where they stand without reading fine print.</p>
     </div>
     <div class="img-full" onclick="openLightbox('img/relabe/website/components.jpg', 'Components')">
       <img src="img/relabe/website/components.jpg" alt="UI Components">
@@ -140,10 +172,10 @@
   </div>
 
   <div class="section">
-    <p class="section-num">04 — Illustration System</p>
+    <p class="section-num">04 · Illustration System</p>
     <h2 class="section-title">Isometric illustration style</h2>
     <div class="section-body">
-      <p>To give the platform warmth and visual personality, I developed a library of isometric 3D illustrations. The style references architectural and urban environments — cities, buildings, infrastructure — as a metaphor for the publishing ecosystem Relabe operates within. The soft blue-purple palette ties directly back to the brand, keeping illustrations feeling native rather than generic.</p>
+      <p>To give the platform warmth and visual personality, I developed a library of isometric 3D illustrations. The style references architectural and urban environments (cities, buildings, infrastructure) as a metaphor for the publishing ecosystem Relabe operates within. The soft blue-purple palette ties directly back to the brand, keeping illustrations feeling native rather than generic.</p>
     </div>
     <div class="img-full" onclick="openLightbox('img/relabe/website/illustrations.jpg', 'Illustration System')">
       <img src="img/relabe/website/illustrations.jpg" alt="Illustrations">
@@ -151,22 +183,22 @@
   </div>
 
   <div class="section" style="border-bottom:none;">
-    <p class="section-num">05 — Motion Graphics</p>
+    <p class="section-num">05 · Motion Graphics</p>
     <h2 class="section-title">Animated 3D elements</h2>
     <div class="section-body">
-      <p>Key brand moments use animated isometric 3D graphics — looping compositions that bring the illustration system to life across the website and platform. Each animation follows the same visual language: translucent geometry, soft blue-purple gradients, and smooth easing that feels considered rather than decorative.</p>
+      <p>Key brand moments use animated isometric 3D graphics: looping compositions that bring the illustration system to life across the website and platform. Each animation follows the same visual language: translucent geometry, soft blue-purple gradients, and smooth easing that feels considered rather than decorative.</p>
     </div>
     <div class="gif-grid">
-      <div class="gif-cell"><img src="img/relabe/website/gif1_v2.gif" alt="3D cube animation"></div>
-      <div class="gif-cell"><img src="img/relabe/website/graphic1.gif" alt="3D platform animation"></div>
-      <div class="gif-cell"><img src="img/relabe/website/b2.gif" alt="3D tower animation"></div>
-      <div class="gif-cell"><img src="img/relabe/website/b3_size.gif" alt="3D chart animation"></div>
+      <div class="gif-cell"><img src="img/relabe/website/anim-1.gif" alt="3D cube animation"></div>
+      <div class="gif-cell"><img src="img/relabe/website/anim-2.gif" alt="3D platform animation"></div>
+      <div class="gif-cell"><img src="img/relabe/website/anim-3.gif" alt="3D tower animation"></div>
+      <div class="gif-cell"><img src="img/relabe/website/anim-4.gif" alt="3D chart animation"></div>
     </div>
   </div>
 
   <footer>
     <span>© 2026 Liz Merino</span>
-    <span>Relabe — Brand &amp; UI</span>
+    <span>Relabe · Brand &amp; UI</span>
   </footer>
 
   <div class="lightbox" id="lightbox">

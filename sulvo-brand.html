@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sulvo Brand — Liz Merino</title>
+  <title>Sulvo Brand · Liz Merino</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --black: #0a0a0a; --white: #fff; --grey: #888; --light: #f5f5f5; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -102,6 +102,14 @@
       .type-row { grid-template-columns: 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
     }
+
+    /* Website video in a browser frame */
+    .browser { max-width: 1000px; margin: 40px auto 0; border: 1px solid #e6ebf3; border-radius: 14px; overflow: hidden; background: #fff; }
+    .browser-bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 16px; border-bottom: 1px solid #e6ebf3; background: #fafbfd; }
+    .browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #dfe4ee; }
+    .browser-bar span { margin-left: 14px; padding: 4px 14px; border-radius: 999px; background: #eef1f7; font-size: 11px; color: #9aa4b8; letter-spacing: 0.02em; }
+    .browser video { display: block; width: 100%; aspect-ratio: 1600 / 818; object-fit: cover; object-position: top; background: #2a5fe8; }
+    .video-cap { text-align: center; font-size: 13px; color: var(--grey); margin-top: 14px; }
   </style>
 </head>
 <body>
@@ -111,13 +119,13 @@
     <ul>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="cv.pdf" target="_blank">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
 
-  <a class="back" href="sulvo.html">
+  <a class="back" href="index.html#work">
     <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Sulvo
+    All work
   </a>
 
   <div class="hero">
@@ -132,28 +140,28 @@
 
   <div class="intro">
     <div>
-      <h2>Building a brand around the idea of a patent — something proprietary, engineered, and exclusively Sulvo's.</h2>
-      <p>Sulvo is an advertising technology platform for publishers, built on patented technology. The brand needed to communicate that distinctiveness visually — not just through language, but through a design language that felt invented rather than assembled.</p>
+      <h2>Building a brand around the idea of a patent: something proprietary, engineered, and exclusively Sulvo's.</h2>
+      <p>Sulvo is an advertising technology platform for publishers, built on patented technology. The brand needed to communicate that distinctiveness visually, not just through language, but through a design language that felt invented rather than assembled.</p>
     </div>
   </div>
 
   <!-- BRIEF -->
   <div class="section">
-    <p class="section-num">01 — Brief</p>
+    <p class="section-num">01 · Brief</p>
     <h2 class="section-title">The challenge</h2>
     <div class="two-col-text">
-      <p>The challenge was to build a brand system for a patented advertising technology platform that needed to communicate exclusivity, technical precision, and innovation. The website was the primary touchpoint — it had to carry the brand while also functioning as a product marketing vehicle for a technical audience.</p>
+      <p>The challenge was to build a brand system for a patented advertising technology platform that needed to communicate exclusivity, technical precision, and innovation. The website was the primary touchpoint. It had to carry the brand while also functioning as a product marketing vehicle for a technical audience.</p>
       <p>We needed a visual language that felt like it came from the inside of an invention. Something that signaled intellectual ownership without relying on generic tech clichés.</p>
     </div>
 
-    <div class="img-full" onclick="openLightbox('img/sulvo/brand/cover.png', 'Sulvo — Website')">
+    <div class="img-full" style="max-width:900px; margin-left:auto; margin-right:auto;" onclick="openLightbox('img/sulvo/brand/cover.png', 'Sulvo · Website')">
       <img src="img/sulvo/brand/cover.png?v=2" alt="Sulvo website">
     </div>
   </div>
 
   <!-- IDEATION -->
   <div class="section">
-    <p class="section-num">02 — Ideation</p>
+    <p class="section-num">02 · Ideation</p>
     <h2 class="section-title">What does a patent look like as a brand?</h2>
     <div class="section-body">
       <p>The ideation phase started with one question: what does a patent look like as a brand? We explored technical drawing conventions, engineering blueprints, and industrial schematics, not as decoration, but as the foundational visual grammar. Early concepts moved between flat line art and dimensional 3D forms before landing on the combination that felt right: isometric geometry rendered in blueprint blue, suggesting both innovation and precision.</p>
@@ -164,8 +172,8 @@
     </div>
 
     <div class="two-col-text" style="margin-top:56px;">
-      <p>Sulvo's patent was at the core of the brand's identity — the design language needed to communicate that this was something proprietary, engineered, and exclusively theirs. Generic branding wouldn't do it. We needed a visual system that felt like it came from the inside of an invention.</p>
-      <p>The answer was a blueprint aesthetic: technical line work, isometric 3D geometry, and the precision of engineering documentation — reinterpreted as brand expression. The result positions Sulvo not just as a software product, but as a protected, original piece of intellectual infrastructure.</p>
+      <p>Sulvo's patent was at the core of the brand's identity. The design language needed to communicate that this was something proprietary, engineered, and exclusively theirs. Generic branding wouldn't do it. We needed a visual system that felt like it came from the inside of an invention.</p>
+      <p>The answer was a blueprint aesthetic: technical line work, isometric 3D geometry, and the precision of engineering documentation, reinterpreted as brand expression. The result positions Sulvo not just as a software product, but as a protected, original piece of intellectual infrastructure.</p>
     </div>
 
     <div style="display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:40px;">
@@ -180,10 +188,10 @@
 
   <!-- COLOR & TYPOGRAPHY -->
   <div class="section">
-    <p class="section-num">03 — Color &amp; Typography</p>
+    <p class="section-num">03 · Color &amp; Typography</p>
     <h2 class="section-title">Visual system</h2>
     <div class="section-body">
-      <p>The palette is anchored in deep navy and electric blue — technical, precise, and unmistakably digital. The lighter blues extend the system into UI contexts and illustration without losing cohesion. Typography uses a clean geometric sans-serif across three weights, letting the visual elements carry the personality.</p>
+      <p>The palette is anchored in deep navy and electric blue: technical, precise, and unmistakably digital. The lighter blues extend the system into UI contexts and illustration without losing cohesion. Typography uses a clean geometric sans-serif across three weights, letting the visual elements carry the personality.</p>
     </div>
 
     <div class="swatches">
@@ -236,8 +244,8 @@
   </div>
 
   <!-- ILLUSTRATION SYSTEM -->
-  <div class="section" style="border-bottom:none;">
-    <p class="section-num">04 — Illustration System</p>
+  <div class="section">
+    <p class="section-num">04 · Illustration System</p>
     <h2 class="section-title">Icon &amp; 3D visual language</h2>
     <div class="section-body">
       <p>The illustration system extends the blueprint concept into two registers: a flat line icon set for UI and documentation contexts, and a library of isometric 3D scenes for marketing and hero visuals. Both share the same geometry and palette, creating a coherent visual world across every surface.</p>
@@ -261,9 +269,23 @@
   </div>
 
 
+  <!-- WEBSITE -->
+  <div class="section" style="border-bottom:none;">
+    <p class="section-num">05 · Website</p>
+    <h2 class="section-title">The brand, live on the website</h2>
+    <div class="section-body">
+      <p>The website brought every piece together: the blueprint backgrounds in the hero, the isometric illustrations next to each product message, and the blue palette carrying the whole page. It was the first place publishers met the brand, so it had to feel as engineered as the technology behind it.</p>
+    </div>
+    <div class="browser">
+      <div class="browser-bar"><i></i><i></i><i></i><span>sulvo.com</span></div>
+      <video src="img/sulvo/website/website.mp4" poster="img/sulvo/website/poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <p class="video-cap">Scrolling through the Sulvo website</p>
+  </div>
+
   <footer>
     <span>© 2026 Liz Merino</span>
-    <span>Sulvo — Brand Identity</span>
+    <span>Sulvo · Brand Identity</span>
   </footer>
 
   <div class="lightbox" id="lightbox">

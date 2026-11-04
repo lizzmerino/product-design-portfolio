@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bancoli Discount Tool — Liz Merino</title>
+  <title>Bancoli Discount Tool · Liz Merino</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --black: #0a0a0a; --white: #fff; --grey: #888; --light: #f5f5f5; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -89,6 +89,106 @@
       .results { grid-template-columns: 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
     }
+
+    /* ═══════════ ANIMATED WIREFRAMES ═══════════ */
+    :root { --navy: #2b3f7e; --lime: #c4ef5f; --blue: #5b6cf0; --wf-bg: #f6f8fc; --wf-line: #e2e7f0; --wf-ink: #3b4560; --wf-mute: #a9b3c7; --ok: #5c9a1b; }
+    .demo { margin: 48px auto 0; max-width: 920px; }
+    .demo.narrow { max-width: 640px; }
+    .demo-cap { text-align: center; font-size: 13px; color: var(--grey); margin-top: 16px; line-height: 1.5; }
+    .wf { container-type: inline-size; position: relative; width: 100%; background: #fff; border: 1px solid var(--wf-line); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -30px rgba(43,63,126,0.35); display: flex; flex-direction: column; }
+    .wf.r16 { aspect-ratio: 16 / 10; }
+    .wf.r3 { aspect-ratio: 2 / 1; }
+    .wf-chrome { height: 30px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 0 14px; border-bottom: 1px solid var(--wf-line); background: #fafbfd; }
+    .wf-chrome i { width: 9px; height: 9px; border-radius: 50%; background: #dfe4ee; }
+    .wf-chrome span { margin-left: 12px; height: 12px; flex: 0 0 34%; background: #eef1f7; border-radius: 6px; }
+    .wf-body { position: relative; flex: 1; min-height: 0; }
+    .bar { height: 8px; border-radius: 4px; background: #e8ecf3; }
+    .t { font-size: clamp(10px, 1.45cqw, 15px); color: var(--wf-ink); }
+    .t-mute { color: var(--wf-mute); }
+
+    /* Fields */
+    .fld label { display: block; font-size: clamp(9px, 1.2cqw, 13px); color: var(--wf-mute); margin-bottom: 6px; }
+    .in { display: flex; align-items: center; height: clamp(26px, 4.4cqw, 44px); padding: 0 1.4cqw; border-bottom: 2px solid #d6dce8; background: var(--wf-bg); border-radius: 6px 6px 0 0; font-size: clamp(10px, 1.5cqw, 15px); color: var(--wf-ink); transition: border-color 0.2s, background 0.2s; }
+    .in.focus { border-color: var(--blue); background: #eef1ff; }
+    .in .val:empty + .caret { margin-left: 0; }
+    .caret { width: 1px; height: 1.1em; background: var(--blue); margin-left: 1px; display: none; animation: blink 1s steps(1) infinite; }
+    .in.focus .caret { display: inline-block; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Cursor + click ripple */
+    .cur { position: absolute; left: 0; top: 0; width: 22px; height: 22px; z-index: 20; pointer-events: none; transition: transform 0.75s cubic-bezier(0.45, 0, 0.2, 1); }
+    .cur.drag { transition: none; }
+    .cur svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25)); }
+    .rip { position: absolute; z-index: 19; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 2px solid var(--blue); opacity: 0; pointer-events: none; }
+    .rip.go { animation: rip 0.5s ease-out; }
+    @keyframes rip { 0% { opacity: 0.6; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.4); } }
+
+    /* ── Before: two plain inputs ── */
+    .old { position: absolute; inset: 0; padding: 6cqw 7cqw; display: flex; flex-direction: column; justify-content: center; gap: 3cqw; }
+    .old-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; }
+    .bubble { position: absolute; z-index: 15; padding: 1.2cqw 2cqw; border-radius: 14px 14px 14px 4px; background: #fff; border: 1px solid #f0c9c4; color: #b5483b; font-size: clamp(10px, 1.6cqw, 15px); box-shadow: 0 10px 24px -12px rgba(0,0,0,0.25); opacity: 0; transform: translateY(6px) scale(0.96); transition: opacity 0.25s, transform 0.25s; white-space: nowrap; }
+    .bubble.on { opacity: 1; transform: none; }
+
+    /* ── Invoice ── */
+    .inv { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 34%; }
+    .inv-main { padding: 3.4cqw 3.4cqw; display: flex; flex-direction: column; gap: 2.4cqw; border-right: 1px solid var(--wf-line); }
+    .inv-head { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.4cqw; padding: 1cqw; background: var(--wf-bg); border-radius: 6px; }
+    .inv-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.4cqw; padding: 0 1cqw; }
+    .inv-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+    .inv-total { display: flex; flex-direction: column; align-items: flex-end; gap: 1cqw; margin-top: auto; }
+    .inv-side { padding: 3.4cqw 2.6cqw; display: flex; flex-direction: column; gap: 1.6cqw; background: #fbfcfe; }
+    .tg { display: flex; align-items: center; gap: 1.2cqw; }
+    .sw { position: relative; width: clamp(20px, 3cqw, 30px); height: clamp(11px, 1.6cqw, 16px); border-radius: 999px; background: #cfd6e4; flex-shrink: 0; transition: background 0.25s; }
+    .sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: calc(clamp(11px, 1.6cqw, 16px) - 4px); aspect-ratio: 1; border-radius: 50%; background: #fff; transition: transform 0.25s; }
+    .tg.on .sw { background: var(--ok); }
+    .tg.on .sw::after { transform: translateX(calc(clamp(20px, 3cqw, 30px) - clamp(11px, 1.6cqw, 16px))); }
+    .sugg { position: relative; display: flex; gap: 1.2cqw; padding: 1.6cqw; border-radius: 10px; border: 1px solid #cfe9a0; background: #f6fce8; opacity: 0; transform: translateY(8px); transition: opacity 0.35s, transform 0.35s; }
+    .sugg.on { opacity: 1; transform: none; }
+    .av { width: clamp(22px, 3.6cqw, 40px); height: clamp(22px, 3.6cqw, 40px); border-radius: 50%; background: #e4e9f5; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: clamp(10px, 1.6cqw, 16px); }
+    .s1, .s3 { font-size: clamp(8px, 1.1cqw, 12px); color: #6b8a3b; line-height: 1.35; }
+    .s2 { display: flex; align-items: baseline; gap: 8px; margin: 2px 0; }
+    .s2 b { font-size: clamp(13px, 2.1cqw, 22px); font-weight: 600; color: var(--ok); font-variant-numeric: tabular-nums; }
+    .edit { font-size: clamp(9px, 1.15cqw, 12px); color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+    .shim { position: absolute; inset: 0; border-radius: 10px; background: linear-gradient(90deg, #f6fce8 0%, #ffffff 50%, #f6fce8 100%); background-size: 200% 100%; display: flex; align-items: center; justify-content: center; font-size: clamp(9px, 1.2cqw, 13px); color: #6b8a3b; opacity: 0; transition: opacity 0.25s; }
+    .shim.on { opacity: 1; animation: shim 1s linear infinite; }
+    @keyframes shim { from { background-position: 200% 0; } to { background-position: 0 0; } }
+    .btn-lime, .btn-out { display: flex; align-items: center; justify-content: center; height: clamp(26px, 4cqw, 42px); border-radius: 8px; font-size: clamp(10px, 1.35cqw, 14px); font-weight: 500; }
+    .btn-lime { background: var(--lime); color: #2c3a12; }
+    .btn-out { border: 1px solid var(--blue); color: var(--blue); background: #fff; }
+    .inv-side .btn-lime { margin-top: auto; }
+
+    /* ── Modal with sliders ── */
+    .ov { position: absolute; inset: 0; z-index: 8; background: rgba(40,46,64,0.38); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .ov.on { opacity: 1; }
+    .modal { position: absolute; z-index: 9; left: 50%; top: 50%; width: 52cqw; padding: 3.2cqw 3.6cqw; background: #fff; border-radius: 14px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.35); opacity: 0; transform: translate(-50%, -46%) scale(0.96); transition: opacity 0.3s, transform 0.3s; }
+    .modal.on { opacity: 1; transform: translate(-50%, -50%); }
+    .m-x { position: absolute; top: 1.6cqw; right: 1.8cqw; width: clamp(16px, 2.4cqw, 24px); height: clamp(16px, 2.4cqw, 24px); border-radius: 50%; background: #fdeeee; color: #e06666; display: flex; align-items: center; justify-content: center; font-size: clamp(10px, 1.4cqw, 14px); }
+    .modal h4 { font-size: clamp(12px, 2cqw, 20px); font-weight: 500; color: var(--wf-ink); margin-bottom: 2.4cqw; }
+    .m-l { font-size: clamp(9px, 1.3cqw, 14px); color: var(--wf-ink); margin-bottom: 4.2cqw; }
+    .m-d { font-size: clamp(9px, 1.3cqw, 14px); color: var(--wf-ink); margin: 2.2cqw 0 2.6cqw; }
+    .m-d b { font-weight: 600; font-variant-numeric: tabular-nums; }
+    .sl { display: flex; align-items: center; gap: 1.4cqw; }
+    .pm { width: clamp(16px, 2.6cqw, 26px); height: clamp(16px, 2.6cqw, 26px); border-radius: 6px; border: 1.5px solid var(--blue); color: var(--blue); display: flex; align-items: center; justify-content: center; font-size: clamp(10px, 1.6cqw, 16px); flex-shrink: 0; }
+    .tr { position: relative; flex: 1; height: clamp(5px, 0.8cqw, 8px); border-radius: 999px; background: #edf0f6; }
+    .fi { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; background: var(--lime); }
+    .th { position: absolute; top: 50%; width: clamp(12px, 2cqw, 20px); height: clamp(12px, 2cqw, 20px); margin: calc(clamp(12px, 2cqw, 20px) / -2) 0 0 calc(clamp(12px, 2cqw, 20px) / -2); border-radius: 50%; background: #b6e64a; box-shadow: 0 0 0 3px rgba(196,239,95,0.35); }
+    .tip { position: absolute; bottom: calc(100% + clamp(10px, 1.8cqw, 18px)); transform: translateX(-50%); padding: 0.6cqw 1.4cqw; border-radius: 999px; border: 1px solid #e2e7f0; background: #fff; color: var(--ok); font-size: clamp(9px, 1.25cqw, 13px); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .tip::after { content: ''; position: absolute; left: 50%; top: 100%; width: 8px; height: 8px; margin: -4px 0 0 -4px; background: #fff; border-right: 1px solid #e2e7f0; border-bottom: 1px solid #e2e7f0; transform: rotate(45deg); }
+    .sl.auto .tip { border-color: #cfe9a0; box-shadow: 0 0 0 3px rgba(196,239,95,0.25); }
+    .m-btns { display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.6cqw; margin-top: 4cqw; width: 70%; margin-left: auto; }
+
+    .legend { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 18px; }
+    .legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--grey); transition: color 0.3s; }
+    .legend span i { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cfd6e4; font-style: normal; font-size: 11px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .legend span.on { color: var(--black); }
+    .legend span.on i { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    @container (max-width: 560px) {
+      .inv { grid-template-columns: 1fr; }
+      .inv-main { display: none; }
+      .modal { width: 88cqw; }
+      .old-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -98,7 +198,7 @@
     <ul>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="cv.pdf" target="_blank">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
 
@@ -119,65 +219,69 @@
 
   <div class="intro">
     <div class="intro-role">
-      <h2>Making early payment discounts feel intuitive — not like a spreadsheet.</h2>
+      <h2>Making early payment discounts feel intuitive, not like a spreadsheet.</h2>
       <p>Bancoli's core value proposition for international B2B trade is dynamic discounting: sellers can incentivize buyers to pay invoices ahead of schedule in exchange for a discount. The challenge was making that mechanic feel natural in the flow of creating an invoice, without requiring users to understand the underlying financial logic.</p>
     </div>
     <div class="intro-details">
-      <p>This was designed almost from scratch. No existing pattern in invoicing tools handles date-based discount calculation quite this way — most tools offer a simple percentage field. Our approach ties the discount directly to timing, and the interface needed to make that relationship immediately legible to a seller who just wants to get paid.</p>
+      <p>This was designed almost from scratch. No existing pattern in invoicing tools handles date-based discount calculation quite this way. Most tools offer a simple percentage field. Our approach ties the discount directly to timing, and the interface needed to make that relationship immediately legible to a seller who just wants to get paid.</p>
     </div>
   </div>
 
   <!-- SECTION 1: PROBLEM -->
   <div class="section">
     <div class="section-header">
-      <p class="section-num">01 — Problem</p>
+      <p class="section-num">01 · Problem</p>
       <h2 class="section-title">A concept that didn't survive the form</h2>
     </div>
     <div class="two-col-text">
-      <p>The original discount entry was a pair of input fields — a percentage and a date. It was technically functional, but fell apart in internal testing. Users struggled to reason about what number to enter. The discount wasn't inherently about a percentage; it was about giving the buyer more time to pay early and rewarding them accordingly. The form abstracted that relationship away entirely.</p>
-      <p>The mental model users needed was: "if my buyer pays <em>this many days</em> before the due date, the system calculates what discount makes sense." Free-form percentage input forced sellers to do that math themselves — or guess. Both led to errors, inconsistency, and lack of confidence in the feature.</p>
+      <p>The original discount entry was a pair of input fields: a percentage and a date. It was technically functional, but fell apart in internal testing. Users struggled to reason about what number to enter. The discount wasn't inherently about a percentage; it was about giving the buyer more time to pay early and rewarding them accordingly. The form abstracted that relationship away entirely.</p>
+      <p>The mental model users needed was: "if my buyer pays <em>this many days</em> before the due date, the system calculates what discount makes sense." Free-form percentage input forced sellers to do that math themselves, or guess. Both led to errors, inconsistency, and lack of confidence in the feature.</p>
     </div>
 
     <div class="callout">
-      <p>"The discount isn't a percentage you decide — it's a relationship between timing and value. The design had to make that visible."</p>
+      <p>"The discount isn't a percentage you decide. It's a relationship between timing and value. The design had to make that visible."</p>
     </div>
 
-    <div style="display:flex; flex-direction:column; align-items:center; margin-top:40px; gap:10px;">
-      <div class="img-wrap clickable" onclick="openLightbox('img/bancoli/app/discount-modal.png', 'Discount date range modal')" style="width:100%; max-width:560px; border-radius:6px; overflow:hidden; background:var(--light);">
-        <img src="img/bancoli/app/discount-modal.png" alt="Discount modal" style="width:100%; display:block;">
-      </div>
-      <span class="screen-label">Discount date range modal</span>
+    <div class="demo narrow">
+      <div class="wf r3"><div class="wf-chrome"><i></i><i></i><i></i><span></span></div><div class="wf-body" id="demoOld"></div></div>
+      <p class="demo-cap">Before: two empty fields. Sellers had to guess both the percentage and the date.</p>
     </div>
   </div>
 
   <!-- SECTION 2: APPROACH -->
   <div class="section">
     <div class="section-header">
-      <p class="section-num">02 — Approach</p>
+      <p class="section-num">02 · Approach</p>
       <h2 class="section-title">Auto-calculate first, give control second</h2>
     </div>
     <div class="section-body">
-      <p>The redesign started by flipping the model: instead of asking sellers to input a discount percentage, the system calculates it automatically. When a seller sets an invoice issue date and due date, Bancoli computes a suggested early-payment discount — displayed immediately in the sidebar with a friendly prompt ("I suggest a discount of 1.97%"). No manual entry required for the default case.</p>
-      <p>But during internal testing, even with auto-calculation, users felt a loss of control. They wanted to understand how the number was generated and be able to adjust it. That tension led to the discount modal: a dedicated interface where the seller can see the relationship between days-early and discount percentage, with two sliders to manipulate both.</p>
-      <p>The top slider sets how many days early the buyer can pay. The system then calculates the corresponding discount percentage — anchored around a base rate of approximately 2% — and shows it on the second slider. Sellers can leave both at the suggested values or adjust them. The deadline date updates live as they move the slider, giving immediate temporal feedback.</p>
+      <p>The redesign started by flipping the model: instead of asking sellers to input a discount percentage, the system calculates it automatically. When a seller sets an invoice issue date and due date, Bancoli computes a suggested early-payment discount, displayed immediately in the sidebar with a friendly prompt ("I suggest a discount of 1.97%"). No manual entry required for the default case.</p>
     </div>
 
-    <div style="display:flex; flex-direction:column; align-items:center; margin-top:40px; gap:10px;">
-      <div style="width:100%; max-width:700px; border-radius:6px; overflow:hidden; background:var(--light);">
-        <img src="img/bancoli/app/discount-slider.gif" alt="Discount slider interaction" style="width:100%; display:block;">
-      </div>
-      <span class="gif-label">Slider interaction — days early ↔ discount % relationship</span>
+    <div class="demo">
+      <div class="wf r16"><div class="wf-chrome"><i></i><i></i><i></i><span></span></div><div class="wf-body" id="demoAuto"></div></div>
+      <div class="legend" id="legAuto"><span data-s="1"><i>1</i>Set the due date</span><span data-s="2"><i>2</i>Turn on discount</span><span data-s="3"><i>3</i>Bancoli suggests the %</span></div>
+    </div>
+
+    <div class="section-body" style="margin-top:64px;">
+      <p>But during internal testing, even with auto-calculation, users felt a loss of control. They wanted to understand how the number was generated and be able to adjust it. That tension led to the discount modal: a dedicated interface where the seller can see the relationship between days-early and discount percentage, with two sliders to manipulate both.</p>
+      <p>The top slider sets how many days early the buyer can pay. The system then calculates the corresponding discount percentage, anchored around a base rate of approximately 2%, and shows it on the second slider. Sellers can leave both at the suggested values or adjust them. The deadline date updates live as they move the slider, giving immediate temporal feedback.</p>
+    </div>
+
+    <div class="demo">
+      <div class="wf r16"><div class="wf-chrome"><i></i><i></i><i></i><span></span></div><div class="wf-body" id="demoModal"></div></div>
+      <div class="legend" id="legModal"><span data-s="1"><i>1</i>Edit the suggestion</span><span data-s="2"><i>2</i>Move the days, % follows</span><span data-s="3"><i>3</i>Fine-tune the %</span><span data-s="4"><i>4</i>Apply</span></div>
     </div>
   </div>
 
   <!-- SECTION 3: OUTCOME -->
   <div class="section">
     <div class="section-header">
-      <p class="section-num">03 — Outcome</p>
+      <p class="section-num">03 · Outcome</p>
       <h2 class="section-title">Shipped as designed. Still running.</h2>
     </div>
     <div class="section-body">
-      <p>The feature launched and was adopted without friction. No significant support tickets related to the discount flow were raised post-launch — a meaningful signal for a financial feature with this level of conceptual novelty. The auto-suggestion handles the default case for most users; the modal gives power users the granularity they want.</p>
+      <p>The feature launched and was adopted without friction. No significant support tickets related to the discount flow were raised post-launch, a meaningful signal for a financial feature with this level of conceptual novelty. The auto-suggestion handles the default case for most users; the modal gives power users the granularity they want.</p>
       <p>Three years on, the discount tool remains one of Bancoli's differentiating features in the B2B invoicing space. The slider approach turned out to be the right abstraction: it makes the timing-value relationship visible without requiring users to understand the math underneath it.</p>
     </div>
 
@@ -199,7 +303,7 @@
 
   <footer>
     <span>© 2026 Liz Merino</span>
-    <span>Bancoli — Discount Tool</span>
+    <span>Bancoli · Discount Tool</span>
   </footer>
 
   <div class="lightbox" id="lightbox">
@@ -226,6 +330,252 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+
+  <script>
+  (function () {
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ARROW = '<svg viewBox="0 0 24 24"><path d="M4 2 L4 19 L8.5 14.8 L11.6 21.5 L14.3 20.3 L11.2 13.7 L17.5 13.5 Z" fill="#1d2233" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const DUE = new Date(2026, 6, 22);
+    const fmt = (d) => String(d.getDate()).padStart(2, '0') + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+    const deadline = (days) => fmt(new Date(DUE.getTime() - days * 86400000));
+    const MAXD = 30, MAXP = 6, RATE = 0.197; // 10 days → 1.97%
+
+    // Shared demo helpers: cursor, click, visibility
+    function Demo(root) {
+      root.insertAdjacentHTML('beforeend', '<div class="rip"></div><div class="cur">' + ARROW + '</div>');
+      const cur = root.querySelector('.cur'), rip = root.querySelector('.rip');
+      let visible = false, resume = null;
+      new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible && resume) { resume(); resume = null; } }, { threshold: 0.3 }).observe(root);
+      const api = {
+        root, cur,
+        waitVisible: () => (visible ? Promise.resolve() : new Promise((r) => (resume = r))),
+        point(x, y) { cur.style.transform = `translate(${x}px, ${y}px)`; rip.style.left = x + 'px'; rip.style.top = y + 'px'; },
+        to(el, fx = 0.3, fy = 0.55) {
+          const s = root.getBoundingClientRect(), r = el.getBoundingClientRect();
+          api.point(r.left - s.left + r.width * fx, r.top - s.top + r.height * fy);
+        },
+        rest() { const s = root.getBoundingClientRect(); api.point(s.width * 0.82, s.height * 0.86); },
+        click() { rip.classList.remove('go'); void rip.offsetWidth; rip.classList.add('go'); },
+        async type(valEl, text, speed = 110) { for (let i = 1; i <= text.length; i++) { valEl.textContent = text.slice(0, i); await sleep(speed); } },
+        async erase(valEl, speed = 70) { while (valEl.textContent.length) { valEl.textContent = valEl.textContent.slice(0, -1); await sleep(speed); } },
+      };
+      return api;
+    }
+    const legend = (id) => { const els = [...document.querySelectorAll('#' + id + ' span')]; return (n) => els.forEach((e) => e.classList.toggle('on', e.dataset.s == n)); };
+
+    /* ── 1. Before: guessing in two fields ── */
+    const oldRoot = document.getElementById('demoOld');
+    if (oldRoot) {
+      oldRoot.innerHTML = `
+        <div class="old">
+          <div class="bar" style="width:34%;height:12px;background:#d7deeb"></div>
+          <div class="old-row">
+            <div class="fld"><label>Discount (%)</label><div class="in" id="oPct"><span class="val"></span><span class="caret"></span></div></div>
+            <div class="fld"><label>Discount valid until</label><div class="in" id="oDate"><span class="val t-mute">dd / mm / yyyy</span><span class="caret"></span></div></div>
+          </div>
+          <div class="bar" style="width:58%;background:#eef1f6"></div>
+        </div>
+        <div class="bubble" id="oBub"></div>`;
+      const d = Demo(oldRoot);
+      const pct = oldRoot.querySelector('#oPct'), pv = pct.querySelector('.val');
+      const date = oldRoot.querySelector('#oDate'), dv = date.querySelector('.val');
+      const bub = oldRoot.querySelector('#oBub');
+      const say = (text, el) => {
+        const s = oldRoot.getBoundingClientRect(), r = el.getBoundingClientRect();
+        bub.textContent = text;
+        bub.style.left = (r.left - s.left + r.width * 0.35) + 'px';
+        bub.style.top = (r.top - s.top - 52) + 'px';
+        bub.classList.add('on');
+      };
+      d.rest();
+      if (!reduce) (async () => {
+        while (true) {
+          await d.waitVisible();
+          await sleep(700);
+          d.to(pct); await sleep(800); d.click(); pct.classList.add('focus');
+          await sleep(300); await d.type(pv, '5');
+          await sleep(300); say('Is 5% too much?', pct); await sleep(1500);
+          bub.classList.remove('on'); await d.erase(pv); await d.type(pv, '2.5');
+          await sleep(300); say('…or too little?', pct); await sleep(1500);
+          bub.classList.remove('on'); pct.classList.remove('focus');
+          d.to(date); await sleep(800); d.click(); date.classList.add('focus');
+          dv.classList.remove('t-mute'); dv.textContent = '';
+          await sleep(300); say('Which date even makes sense?', date); await sleep(2000);
+          bub.classList.remove('on'); date.classList.remove('focus');
+          await sleep(500);
+          pv.textContent = ''; dv.textContent = 'dd / mm / yyyy'; dv.classList.add('t-mute'); d.rest();
+          await sleep(900);
+        }
+      })();
+    }
+
+    /* ── Invoice markup (shared by demo 2 & 3) ── */
+    const invoice = (withModal) => `
+      <div class="inv">
+        <div class="inv-main">
+          <div class="bar" style="width:30%;height:12px;background:#d7deeb"></div>
+          <div class="inv-head"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+          <div class="inv-row"><div class="bar" style="background:#eef1f6"></div><div class="bar" style="background:#eef1f6"></div><div class="bar" style="background:#eef1f6"></div><div class="bar" style="background:#eef1f6"></div></div>
+          <div class="inv-row"><div class="bar" style="background:#eef1f6;width:70%"></div><div></div><div></div><div></div></div>
+          <div class="inv-dates">
+            <div class="fld"><label>Issue date</label><div class="in">08 Jun 2026</div></div>
+            <div class="fld"><label>Due date</label><div class="in due"><span class="val">${withModal ? '22 Jul 2026' : ''}</span><span class="caret"></span></div></div>
+          </div>
+          <div class="inv-total"><div class="bar" style="width:34%"></div><div class="bar" style="width:24%;height:10px;background:#d7deeb"></div></div>
+        </div>
+        <div class="inv-side">
+          <div class="tg"><span class="sw"></span><span class="bar" style="flex:1;max-width:70%"></span></div>
+          <div class="tg"><span class="sw"></span><span class="bar" style="flex:1;max-width:50%"></span></div>
+          <div class="tg disc ${withModal ? 'on' : ''}"><span class="sw"></span><span class="t">Apply discount</span></div>
+          <div class="sugg ${withModal ? 'on' : ''}">
+            <div class="av">✦</div>
+            <div>
+              <p class="s1">I suggest a discount of</p>
+              <p class="s2"><b class="pct">1.97%</b><span class="edit">Edit</span></p>
+              <p class="s3">if the buyer pays by <span class="dl">12 Jul 2026</span></p>
+            </div>
+            <div class="shim">Calculating…</div>
+          </div>
+          <div class="btn-lime">Schedule now</div>
+          <div class="btn-out">Preview</div>
+        </div>
+      </div>
+      ${withModal ? `
+      <div class="ov"></div>
+      <div class="modal">
+        <div class="m-x">✕</div>
+        <h4>Choose your discount date range</h4>
+        <p class="m-l">If the buyer pays early:</p>
+        <div class="sl" id="slDays"><span class="pm">−</span><div class="tr"><div class="fi"></div><div class="th"></div><div class="tip"></div></div><span class="pm">+</span></div>
+        <p class="m-d">Your discount deadline is <b class="m-dl"></b>.</p>
+        <p class="m-l">Then you offer a discount of:</p>
+        <div class="sl" id="slPct"><span class="pm">−</span><div class="tr"><div class="fi"></div><div class="th"></div><div class="tip"></div></div><span class="pm">+</span></div>
+        <div class="m-btns"><div class="btn-out">Cancel</div><div class="btn-lime">Apply discount</div></div>
+      </div>` : ''}`;
+
+    /* ── 2. Auto-suggestion ── */
+    const autoRoot = document.getElementById('demoAuto');
+    if (autoRoot) {
+      autoRoot.innerHTML = invoice(false);
+      const d = Demo(autoRoot), leg = legend('legAuto');
+      const due = autoRoot.querySelector('.due'), dueV = due.querySelector('.val');
+      const tg = autoRoot.querySelector('.disc'), sugg = autoRoot.querySelector('.sugg'), shim = autoRoot.querySelector('.shim');
+      const pctEl = autoRoot.querySelector('.pct');
+      d.rest();
+      if (!reduce) (async () => {
+        while (true) {
+          await d.waitVisible();
+          await sleep(700);
+          leg(1);
+          if (getComputedStyle(due.closest('.inv-main')).display !== 'none') {
+            d.to(due); await sleep(800); d.click(); due.classList.add('focus');
+            await sleep(250); await d.type(dueV, '22 Jul 2026', 80);
+            await sleep(400); due.classList.remove('focus');
+          } else { dueV.textContent = '22 Jul 2026'; await sleep(600); }
+          leg(2);
+          d.to(tg.querySelector('.sw'), 0.5, 0.5); await sleep(800); d.click(); tg.classList.add('on');
+          await sleep(300);
+          leg(3);
+          sugg.classList.add('on'); shim.classList.add('on');
+          await sleep(1100);
+          shim.classList.remove('on');
+          for (let v = 0; v <= 197; v += 7) { pctEl.textContent = (Math.min(v, 197) / 100).toFixed(2) + '%'; await sleep(22); }
+          pctEl.textContent = '1.97%';
+          d.rest();
+          await sleep(3000);
+          // reset
+          sugg.classList.remove('on'); tg.classList.remove('on'); dueV.textContent = ''; leg(0);
+          await sleep(800);
+        }
+      })();
+    }
+
+    /* ── 3. Modal with linked sliders ── */
+    const modalRoot = document.getElementById('demoModal');
+    if (modalRoot) {
+      modalRoot.innerHTML = invoice(true);
+      const d = Demo(modalRoot), leg = legend('legModal');
+      const ov = modalRoot.querySelector('.ov'), modal = modalRoot.querySelector('.modal');
+      const edit = modalRoot.querySelector('.edit');
+      const slD = modalRoot.querySelector('#slDays'), slP = modalRoot.querySelector('#slPct');
+      const mdl = modalRoot.querySelector('.m-dl');
+      const cardPct = modalRoot.querySelector('.pct'), cardDl = modalRoot.querySelector('.dl');
+      const apply = modalRoot.querySelector('.m-btns .btn-lime');
+      const setSl = (sl, frac, label) => {
+        frac = Math.max(0, Math.min(1, frac));
+        sl.querySelector('.fi').style.width = frac * 100 + '%';
+        sl.querySelector('.th').style.left = frac * 100 + '%';
+        const tip = sl.querySelector('.tip'); tip.style.left = frac * 100 + '%'; tip.textContent = label;
+      };
+      let days = 10, pct = 1.97;
+      const render = () => {
+        setSl(slD, days / MAXD, Math.round(days) + ' days early');
+        setSl(slP, pct / MAXP, pct.toFixed(2) + ' %');
+        mdl.textContent = deadline(Math.round(days));
+      };
+      render();
+      const thumbPos = (sl) => {
+        const s = modalRoot.getBoundingClientRect(), r = sl.querySelector('.th').getBoundingClientRect();
+        return [r.left - s.left + r.width / 2 - 3, r.top - s.top + r.height / 2 - 2];
+      };
+      const drag = async (sl, from, to, ms, onStep) => {
+        d.cur.classList.add('drag');
+        const t0 = performance.now();
+        await new Promise((res) => {
+          const step = (t) => {
+            const k = Math.min(1, (t - t0) / ms), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+            onStep(from + (to - from) * e);
+            render();
+            const [x, y] = thumbPos(sl); d.point(x, y);
+            k < 1 ? requestAnimationFrame(step) : res();
+          };
+          requestAnimationFrame(step);
+        });
+        d.cur.classList.remove('drag');
+      };
+      d.rest();
+      if (!reduce) (async () => {
+        while (true) {
+          await d.waitVisible();
+          days = 10; pct = 1.97; render();
+          cardPct.textContent = '1.97%'; cardDl.textContent = deadline(10);
+          await sleep(800);
+          // 1. Edit
+          leg(1);
+          d.to(edit, 0.5, 0.6); await sleep(850); d.click();
+          await sleep(200);
+          ov.classList.add('on'); modal.classList.add('on');
+          await sleep(700);
+          // 2. Drag days → % follows automatically
+          leg(2);
+          let [x, y] = thumbPos(slD); d.point(x, y); await sleep(800);
+          slP.classList.add('auto');
+          await drag(slD, 10, 18, 1600, (v) => { days = v; pct = Math.round(v) * RATE; });
+          slP.classList.remove('auto');
+          await sleep(700);
+          // 3. Fine-tune % by hand
+          leg(3);
+          [x, y] = thumbPos(slP); d.point(x, y); await sleep(800);
+          await drag(slP, pct, 3.0, 1000, (v) => { pct = v; });
+          pct = 3.0; render();
+          await sleep(700);
+          // 4. Apply
+          leg(4);
+          d.to(apply, 0.5, 0.55); await sleep(850); d.click();
+          await sleep(200);
+          modal.classList.remove('on'); ov.classList.remove('on');
+          cardPct.textContent = pct.toFixed(2) + '%'; cardDl.textContent = deadline(Math.round(days));
+          d.rest();
+          await sleep(3000);
+          leg(0);
+        }
+      })();
+    }
+  })();
   </script>
 
 </body>

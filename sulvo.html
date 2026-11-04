@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sulvo — Liz Merino</title>
+  <title>Sulvo · Liz Merino</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --black: #0a0a0a; --white: #fff; --grey: #888; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -126,7 +126,7 @@
     <ul>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="cv.pdf" target="_blank">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
 
@@ -154,23 +154,9 @@
     <div class="col">
       <span class="col-label">Brand</span>
       <div class="thumb" onclick="window.location.href='sulvo-brand.html'" style="cursor:pointer">
-        <img src="img/sulvo/brand/cover.png" alt="Sulvo Brand"
+        <img src="img/sulvo/brand/thumb-brand.jpg" alt="Sulvo Brand"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="thumb-empty" style="display:none">Upload thumb-brand.jpg</div>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="col">
-      <span class="col-label">Website</span>
-      <div class="thumb video-thumb" onclick="openVideo()">
-        <video id="bgVideo" src="img/sulvo/website/website.mp4"
-               poster="img/sulvo/website/thumb-website.jpg"
-               muted playsinline preload="metadata"
-               style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"></video>
-        <div class="play-btn" aria-label="Play">
-          <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><polygon points="6,3 20,12 6,21"/></svg>
-        </div>
       </div>
     </div>
 
@@ -204,37 +190,11 @@
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeVideo(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    function openVideo() {
-      const v = document.getElementById('modalVideo');
-      document.getElementById('vmodal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      v.currentTime = 0;
-      v.play();
-    }
-    function closeVideo() {
-      document.getElementById('modalVideo').pause();
-      document.getElementById('vmodal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
   </script>
 
 
-  <!-- VIDEO MODAL -->
-  <div class="vmodal" id="vmodal">
-    <div class="vmodal-bar">
-      <span class="vmodal-title">Sulvo — Website</span>
-      <button class="vmodal-close" onclick="closeVideo()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="vmodal-body" onclick="closeVideo()">
-      <video id="modalVideo" src="img/sulvo/website/website.mp4"
-             poster="img/sulvo/website/thumb-website.jpg"
-             controls onclick="event.stopPropagation()"></video>
-    </div>
-  </div>
 
 </body>
 </html>

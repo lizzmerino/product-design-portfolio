@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bancoli KYC Onboarding — Liz Merino</title>
+  <title>Bancoli KYC Onboarding · Liz Merino</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black: #0a0a0a; --white: #fff; --grey: #888;
       --light: #f5f5f5; --border: #e8e8e8;
-      --accent: #1a2e5c;
+      --navy: #2b3f7e; --lime: #c4ef5f;
+      --wf-bg: #f6f8fc; --wf-line: #e2e7f0; --wf-ink: #3b4560; --wf-mute: #a9b3c7;
       --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
@@ -21,7 +22,6 @@
     nav ul li a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.6; transition: opacity 0.2s; }
     nav ul li a:hover { opacity: 1; }
 
-    /* BACK */
     .back { display: inline-flex; align-items: center; gap: 8px; padding: 120px 48px 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--grey); transition: color 0.2s; }
     .back:hover { color: var(--black); }
     .back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
@@ -35,9 +35,6 @@
     .meta-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
     .meta-value { font-size: 14px; }
 
-    /* BODY LAYOUT */
-    .case-body { max-width: 1400px; }
-
     /* TEXT SECTIONS */
     .text-section { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 72px 48px; border-bottom: 1px solid var(--border); }
     .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); padding-top: 4px; }
@@ -45,57 +42,273 @@
     .section-content p { font-size: 15px; line-height: 1.75; color: #444; max-width: 640px; }
     .section-content p + p { margin-top: 16px; }
 
-    /* PLACEHOLDER IMAGES */
-    .img-section { padding: 72px 48px; border-bottom: 1px solid var(--border); }
-    .img-section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 32px; }
+    .demo-section { padding: 72px 48px; border-bottom: 1px solid var(--border); }
+    .demo-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 10px; }
+    .demo-title { font-size: 24px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 36px; max-width: 640px; line-height: 1.35; }
+    .caption { font-size: 13px; color: var(--grey); margin-top: 14px; line-height: 1.5; }
 
-    .placeholder { background: var(--light); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
-    .placeholder span { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; }
-    .placeholder-full { width: 100%; height: 560px; }
-    .placeholder-half { width: 100%; height: 480px; }
-    .placeholder-third { width: 100%; height: 400px; }
-
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-
-    .img-caption { font-size: 12px; color: var(--grey); margin-top: 10px; letter-spacing: 0.02em; }
-
-    /* CALLOUT */
-    .callout { margin: 0 48px; padding: 40px 48px; background: var(--accent); border-radius: 8px; }
+    .callout { margin: 0 48px; padding: 40px 48px; background: var(--navy); border-radius: 8px; }
     .callout p { font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--white); letter-spacing: -0.01em; max-width: 700px; }
+
+    /* ═══════════ WIREFRAME KIT ═══════════ */
+    .wf-frame {
+      container-type: inline-size;
+      position: relative;
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--wf-line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -30px rgba(43,63,126,0.35);
+      display: flex; flex-direction: column;
+      aspect-ratio: 16 / 10;
+    }
+    .wf-chrome { height: 30px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 0 14px; border-bottom: 1px solid var(--wf-line); background: #fafbfd; }
+    .wf-chrome i { width: 9px; height: 9px; border-radius: 50%; background: #dfe4ee; display: block; }
+    .wf-chrome span { margin-left: 12px; height: 12px; flex: 0 0 34%; background: #eef1f7; border-radius: 6px; }
+
+    .wf-phone {
+      container-type: inline-size;
+      position: relative;
+      width: 100%; max-width: 290px;
+      aspect-ratio: 9 / 18.5;
+      background: #fff;
+      border: 8px solid #1d2233;
+      border-radius: 38px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 30px 60px -30px rgba(29,34,51,0.45);
+      margin: 0 auto;
+    }
+    .wf-phone .wf-notch { height: 26px; flex-shrink: 0; display: flex; justify-content: center; align-items: flex-start; }
+    .wf-phone .wf-notch::before { content: ''; width: 34%; height: 16px; background: #1d2233; border-radius: 0 0 12px 12px; }
+
+    /* Mobile: answers in the thumb zone, bigger tap targets */
+
+
+    .wf-app { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+    /* Top bar: chapters + points */
+    .wf-top { flex-shrink: 0; display: flex; align-items: center; gap: 4cqw; padding: 2.4cqw 4cqw; border-bottom: 1px solid var(--wf-line); }
+    .wf-steps { flex: 1; display: flex; gap: 1.2cqw; }
+    .wf-step { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .wf-step .track { height: 4px; border-radius: 4px; background: var(--wf-line); overflow: hidden; }
+    .wf-step .fill { height: 100%; width: 0; background: var(--navy); border-radius: 4px; transition: width 0.5s ease; }
+    .wf-step .name { font-size: clamp(8px, 1.15cqw, 12px); color: var(--wf-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.3s; }
+    .wf-step.on .name { color: var(--wf-ink); }
+    .wf-points { position: relative; flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 5px; border-radius: 999px; background: var(--wf-bg); font-size: clamp(10px, 1.3cqw, 13px); color: var(--wf-ink); }
+    .wf-points .coin { width: 18px; height: 18px; border-radius: 50%; background: var(--navy); color: #fff; font: 600 10px/18px Georgia, serif; text-align: center; }
+    .wf-points b { font-weight: 600; font-variant-numeric: tabular-nums; }
+    .wf-plus { position: absolute; right: 6px; top: -2px; font-size: 11px; font-weight: 600; color: #4f8a10; background: var(--lime); padding: 2px 6px; border-radius: 999px; opacity: 0; pointer-events: none; }
+    .wf-plus.go { animation: plusUp 0.9s ease forwards; }
+    @keyframes plusUp { 0% { opacity: 0; transform: translateY(6px); } 25% { opacity: 1; } 100% { opacity: 0; transform: translateY(-16px); } }
+
+    /* Stage + sliding track */
+    .wf-stage { position: relative; flex: 1; overflow: hidden; min-height: 0; }
+    .wf-track { position: absolute; left: 0; right: 0; top: 0; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.4s; }
+    .wf-slide { display: flex; align-items: center; padding: 0 9cqw; }
+    .wf-q { width: 100%; max-width: 560px; }
+    .wf-num { display: inline-flex; align-items: center; gap: 6px; font-size: clamp(10px, 1.3cqw, 13px); color: var(--navy); margin-bottom: 8px; }
+    .wf-q h4 { font-size: clamp(14px, 2.6cqw, 24px); font-weight: 500; color: var(--wf-ink); letter-spacing: -0.01em; line-height: 1.25; }
+    .wf-sub { height: 8px; width: 58%; border-radius: 4px; background: #edf0f6; margin: 10px 0 2.6cqw; }
+    .wf-opts { display: flex; flex-direction: column; gap: 1.2cqw; }
+    /* Autocomplete dropdown (long lists) */
+    .wf-auto { position: relative; }
+    .wf-input { position: relative; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-height: 36px; padding: 0.8cqw 36px 0.8cqw 1.4cqw; border: 1px solid var(--wf-line); border-bottom: 2px solid #cfd6e4; border-radius: 8px 8px 0 0; background: var(--wf-bg); font-size: clamp(11px, 1.6cqw, 15px); color: var(--wf-ink); transition: border-color 0.2s; }
+    .wf-auto.open .wf-input { border-bottom-color: var(--navy); }
+    .wf-ph { color: var(--wf-mute); }
+    .wf-auto.typing .wf-ph, .wf-auto.has .wf-ph { display: none; }
+    .wf-typed:empty { display: none; }
+    .wf-caret { width: 1px; height: 1.2em; background: var(--navy); display: none; animation: blink 1s steps(1) infinite; }
+    .wf-auto.open .wf-caret { display: inline-block; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .wf-chev { position: absolute; right: 12px; top: 50%; width: 14px; height: 14px; margin-top: -7px; transition: transform 0.2s; }
+    .wf-auto.open .wf-chev { transform: rotate(180deg); }
+    .wf-chips { display: contents; }
+    .wf-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 999px; background: var(--navy); color: #fff; font-size: clamp(10px, 1.3cqw, 13px); animation: pop 0.25s ease; }
+    .wf-chip i { font-style: normal; opacity: 0.6; }
+    .wf-val { color: var(--navy); font-weight: 500; }
+    @keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: none; opacity: 1; } }
+    .wf-dd { display: none; border: 1px solid var(--wf-line); border-top: none; border-radius: 0 0 8px 8px; background: #fff; box-shadow: 0 12px 24px -16px rgba(43,63,126,0.35); overflow: hidden; }
+    .wf-auto.open .wf-dd { display: block; }
+    .wf-ddi { padding: 0.9cqw 1.4cqw; min-height: 28px; display: flex; align-items: center; font-size: clamp(11px, 1.5cqw, 14px); color: var(--wf-ink); border-top: 1px solid #f0f3f8; transition: background 0.2s; }
+    .wf-ddi:first-child { border-top: none; }
+    .wf-ddi b { font-weight: 600; color: var(--navy); }
+    .wf-ddi.hl { background: #eef1fa; }
+
+    .wf-opt { position: relative; display: flex; align-items: center; gap: 10px; padding: 1.2cqw 1.6cqw; min-height: 32px; border: 1px solid var(--wf-line); border-radius: 8px; background: var(--wf-bg); font-size: clamp(11px, 1.6cqw, 15px); color: var(--wf-ink); transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.15s; }
+    .wf-key { flex-shrink: 0; width: 20px; height: 20px; border-radius: 5px; border: 1px solid #cfd6e4; background: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; color: var(--wf-mute); transition: inherit; }
+    .wf-opt .check { margin-left: auto; width: 16px; height: 16px; opacity: 0; transition: opacity 0.2s; }
+    .wf-opt.picked { background: var(--navy); border-color: var(--navy); color: #fff; transform: scale(0.985); }
+    .wf-opt.picked .wf-key { background: rgba(255,255,255,0.15); border-color: transparent; color: #fff; }
+    .wf-opt.picked .check { opacity: 1; }
+    /* Bottom nav: hint left, arrows + OK always on the right */
+    .wf-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2.6cqw; }
+    .wf-hint { font-size: clamp(9px, 1.1cqw, 12px); color: var(--wf-mute); }
+    .wf-navbtns { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .wf-arrow { width: 30px; height: 30px; border-radius: 7px; background: #a6b1c6; display: flex; align-items: center; justify-content: center; }
+    .wf-arrow svg { width: 14px; height: 14px; }
+    .wf-ok { display: inline-flex; align-items: center; gap: 6px; height: 30px; margin-left: 8px; padding: 0 16px; border-radius: 7px; background: var(--lime); color: #2c3a12; font-size: clamp(11px, 1.4cqw, 14px); font-weight: 500; transition: background 0.2s, transform 0.15s; }
+    .wf-ok svg { width: 13px; height: 13px; }
+    .wf-ok.picked { background: #aedb45; transform: scale(0.96); }
+
+    /* Mobile layout: kicks in automatically when the screen is narrow */
+    @container (max-width: 440px) {
+      /* No progress bar on mobile to save space; points pill stays */
+      .wf-steps, .pts-word, .wf-hint { display: none; }
+      .wf-top { padding: 10px 16px; justify-content: flex-end; border-bottom: none; }
+      /* Question + answers on top, buttons pinned to the bottom (thumb zone) */
+      .wf-slide { align-items: stretch; padding: 8px 20px 22px; }
+      .wf-q { display: flex; flex-direction: column; max-width: none; }
+      .wf-q .wf-nav { margin-top: auto; padding-top: 16px; }
+      .wf-slide:last-child { align-items: center; }
+      .wf-q h4 { font-size: 17px; }
+      .wf-opts { gap: 8px; }
+      .wf-opt { min-height: 46px; padding: 10px 12px; font-size: 14px; }
+      .wf-input { min-height: 46px; font-size: 14px; }
+      .wf-ddi { min-height: 40px; padding: 8px 12px; font-size: 14px; }
+      .wf-arrow, .wf-ok { height: 40px; }
+      .wf-arrow { width: 40px; }
+      .wf-ok { flex: 1; justify-content: center; }
+      .wf-navbtns { width: 100%; justify-content: flex-end; }
+      .wf-sub { margin-bottom: 16px; }
+      .wf-done { align-self: center; }
+      .wf-rewards .wf-reward:nth-child(3) { display: none; }
+    }
+
+    /* Completion slide */
+    .wf-done { width: 100%; text-align: center; }
+    .wf-done .badge { width: 48px; height: 48px; margin: 0 auto 14px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; }
+    .wf-done h4 { font-size: clamp(14px, 2.4cqw, 22px); font-weight: 500; color: var(--wf-ink); }
+    .wf-done p { font-size: clamp(10px, 1.4cqw, 14px); color: var(--wf-mute); margin-top: 6px; }
+    .wf-rewards { display: flex; gap: 1.6cqw; justify-content: center; margin-top: 3cqw; }
+    .wf-reward { width: 20%; min-width: 60px; padding: 1.6cqw; border-radius: 10px; border: 1px solid var(--wf-line); background: var(--wf-bg); }
+    .wf-reward .ic { width: 22px; height: 22px; border-radius: 50%; background: #dfe5f3; margin-bottom: 8px; }
+    .wf-reward .l1 { height: 6px; border-radius: 3px; background: #dfe5f3; width: 80%; }
+    .wf-reward .l2 { height: 6px; border-radius: 3px; background: #eceff6; width: 50%; margin-top: 5px; }
+    .wf-cta { display: inline-block; margin-top: 3cqw; padding: 1.2cqw 3cqw; border-radius: 8px; background: var(--lime); font-size: clamp(10px, 1.4cqw, 14px); font-weight: 500; color: #2c3a12; }
+
+    /* Cursor / tap */
+    .wf-cursor { position: absolute; left: 0; top: 0; width: 22px; height: 22px; z-index: 5; pointer-events: none; transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1), opacity 0.3s; }
+    .wf-cursor svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25)); }
+    .wf-cursor.tap { width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: rgba(43,63,126,0.18); border: 2px solid rgba(43,63,126,0.45); }
+    .wf-ripple { position: absolute; z-index: 4; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 2px solid var(--navy); opacity: 0; pointer-events: none; }
+    .wf-ripple.go { animation: ripple 0.5s ease-out; }
+    @keyframes ripple { 0% { opacity: 0.6; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.4); } }
+
+    /* ── Before: long form ── */
+    .lf { position: relative; flex: 1; overflow: hidden; background: #fff; }
+    .lf-scroll { padding: 4cqw 6cqw; animation: lfScroll 16s ease-in-out infinite; }
+    @keyframes lfScroll { 0%, 8% { transform: translateY(0); } 50%, 58% { transform: translateY(-62%); } 100% { transform: translateY(0); } }
+    .lf-h { height: 12px; width: 30%; border-radius: 4px; background: #d7deeb; margin: 2.6cqw 0 1.6cqw; }
+    .lf-h:first-child { margin-top: 0; width: 44%; height: 16px; }
+    .lf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw 2cqw; }
+    .lf-field .lb { height: 6px; width: 55%; border-radius: 3px; background: #e4e8f0; margin-bottom: 6px; }
+    .lf-field .in { height: 3.6cqw; min-height: 18px; border-radius: 5px; border: 1px solid var(--wf-line); background: var(--wf-bg); }
+    .lf-field.req .lb::after { content: ''; }
+    .lf-badge { position: absolute; right: 3cqw; bottom: 3cqw; padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid #f0c9c4; color: #b5483b; font-size: clamp(10px, 1.3cqw, 13px); box-shadow: 0 6px 18px -8px rgba(0,0,0,0.2); }
+    .lf-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); pointer-events: none; }
+
+    .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .vs-tag { display: inline-block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; margin-bottom: 14px; }
+    .vs-tag.bad { background: #fbeeec; color: #b5483b; }
+    .vs-tag.good { background: #eef8d8; color: #4f7a10; }
+
+    /* Main demo with synced annotations */
+    .demo-grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: center; }
+    .steps-legend { list-style: none; display: flex; flex-direction: column; gap: 22px; }
+    .steps-legend li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; opacity: 0.35; transition: opacity 0.3s; }
+    .steps-legend li.on { opacity: 1; }
+    .steps-legend .n { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #cfd6e4; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--wf-ink); transition: background 0.3s, color 0.3s, border-color 0.3s; }
+    .steps-legend li.on .n { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .steps-legend h5 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .steps-legend p { font-size: 13px; line-height: 1.55; color: var(--grey); }
+
+    /* Responsive demo */
+    /* Desktop → mobile morph */
+    .morph-wrap { display: flex; flex-direction: column; align-items: center; }
+    .morph {
+      container-type: inline-size;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      background: #fff;
+      border: 1px solid var(--wf-line);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px -30px rgba(43,63,126,0.35);
+      transition: width 1.2s cubic-bezier(0.65, 0, 0.35, 1), height 1.2s cubic-bezier(0.65, 0, 0.35, 1), border-radius 1.2s ease, border-color 0.6s ease, border-width 0.6s ease;
+    }
+    .morph.mobile { border: 8px solid #1d2233; border-radius: 38px; }
+    .m-chrome { transition: height 0.6s ease, opacity 0.4s ease; overflow: hidden; }
+    .morph.mobile .m-chrome { height: 0; opacity: 0; border-bottom: none; }
+    .m-notch { height: 0; flex-shrink: 0; display: flex; justify-content: center; overflow: hidden; transition: height 0.6s ease; }
+    .m-notch::before { content: ''; width: 34%; height: 16px; background: #1d2233; border-radius: 0 0 12px 12px; }
+    .morph.mobile .m-notch { height: 26px; }
+    .morph-label { display: flex; gap: 6px; margin-top: 22px; padding: 4px; border-radius: 999px; background: #f2f4f8; }
+    .morph-label span { padding: 6px 14px; border-radius: 999px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: background 0.4s, color 0.4s; }
+    .morph-label span.on { background: #fff; color: var(--black); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+    /* Rewards demo */
+    .rw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .rw-card { container-type: inline-size; border: 1px solid var(--wf-line); border-radius: 14px; padding: 28px; background: #fff; box-shadow: 0 20px 50px -30px rgba(43,63,126,0.35); }
+    .rw-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .rw-head .t { font-size: 13px; color: var(--wf-mute); }
+    .rw-total { font-size: 44px; font-weight: 300; letter-spacing: -0.03em; color: var(--wf-ink); font-variant-numeric: tabular-nums; }
+    .rw-total small { font-size: 14px; color: var(--wf-mute); margin-left: 6px; letter-spacing: 0; }
+    .rw-chapters { display: flex; flex-direction: column; gap: 10px; margin: 20px 0 24px; }
+    .rw-ch { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: var(--wf-bg); font-size: 13px; color: var(--wf-ink); opacity: 0.4; transition: opacity 0.3s, background 0.3s; }
+    .rw-ch .dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #cfd6e4; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
+    .rw-ch .pts { margin-left: auto; font-size: 12px; color: var(--wf-mute); }
+    .rw-ch.done { opacity: 1; }
+    .rw-ch.done .dot { background: var(--navy); border-color: var(--navy); }
+    .rw-ch.done .pts { color: #4f7a10; }
+    .rw-spend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .rw-item { padding: 14px; border-radius: 10px; border: 1px dashed #cfd6e4; opacity: 0.35; transform: translateY(6px); transition: all 0.4s; }
+    .rw-item.on { opacity: 1; transform: none; border-style: solid; border-color: var(--wf-line); background: var(--wf-bg); }
+    .rw-item .ic { width: 24px; height: 24px; border-radius: 50%; background: #dfe5f3; margin-bottom: 10px; }
+    .rw-item .l1 { height: 6px; border-radius: 3px; background: #dfe5f3; width: 80%; }
+    .rw-item .l2 { height: 6px; border-radius: 3px; background: #eceff6; width: 50%; margin-top: 6px; }
+    .rw-btn { margin-top: 20px; width: 100%; padding: 12px; border-radius: 8px; background: var(--lime); text-align: center; font-size: 14px; font-weight: 500; color: #2c3a12; opacity: 0.35; transition: opacity 0.3s; }
+    .rw-btn.on { opacity: 1; }
+
+    /* Chapters map */
+    .map { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 8px; }
+    .map-node { flex: 1; min-width: 130px; position: relative; padding-right: 16px; }
+    .map-node::after { content: ''; position: absolute; top: 15px; left: 34px; right: 0; height: 1px; background: #cfd6e4; }
+    .map-node:last-child::after { display: none; }
+    .map-node:last-child { flex: 0 0 auto; padding-right: 0; }
+    .map-node .c { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+    .map-node:last-child .c { background: var(--lime); color: #2c3a12; }
+    .map-node h5 { margin-top: 14px; font-size: 14px; font-weight: 500; }
+    .map-node p { margin-top: 4px; font-size: 12px; color: var(--grey); line-height: 1.5; }
+    .map-branch { display: inline-block; margin-top: 10px; padding: 4px 9px; border-radius: 999px; background: #eef8d8; color: #4f7a10; font-size: 11px; }
 
     /* RESULT */
     .result-section { padding: 72px 48px; border-bottom: 1px solid var(--border); }
     .result-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-bottom: 32px; }
     .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
-    .result-item h3 { font-size: 42px; font-weight: 300; letter-spacing: -0.03em; color: var(--black); margin-bottom: 8px; }
+    .result-item h3 { font-size: 42px; font-weight: 300; letter-spacing: -0.03em; margin-bottom: 8px; }
     .result-item p { font-size: 14px; line-height: 1.6; color: var(--grey); }
 
-    /* FOOTER */
     footer { padding: 24px 48px; display: flex; justify-content: space-between; }
     footer span { font-size: 12px; color: var(--grey); }
 
-    /* LIGHTBOX */
-    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(5,10,20,0.96); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-    .lightbox.open { opacity: 1; pointer-events: all; }
-    .lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; flex-shrink: 0; }
-    .lb-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-    .lb-close { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .lb-close svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 1.5; }
-    .lb-body { flex: 1; overflow-y: auto; padding: 0 48px 48px; display: flex; justify-content: center; }
-    .lb-body img { max-width: 1200px; width: 100%; height: auto; border-radius: 6px; }
-
+    @media (max-width: 960px) {
+      .demo-grid, .rw-grid, .vs-grid { grid-template-columns: 1fr; gap: 32px; }
+      .steps-legend li { opacity: 1; }
+    }
     @media (max-width: 900px) {
       nav { padding: 20px 24px; } nav ul { gap: 24px; }
       .back { padding: 100px 24px 0; }
       .hero { padding: 24px 24px 48px; }
       .text-section { grid-template-columns: 1fr; gap: 20px; padding: 48px 24px; }
-      .img-section { padding: 48px 24px; }
+      .demo-section { padding: 48px 24px; }
       .callout { margin: 0 24px; padding: 32px 24px; }
       .result-section { padding: 48px 24px; }
       .result-grid { grid-template-columns: 1fr; gap: 32px; }
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lf-scroll { animation: none; }
     }
   </style>
 </head>
@@ -106,7 +319,7 @@
     <ul>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="cv.pdf" target="_blank">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
 
@@ -115,203 +328,538 @@
     Bancoli
   </a>
 
-  <!-- HERO -->
   <div class="hero">
-    <p class="hero-label">Case Study</p>
+    <p class="hero-label">UX Case Study</p>
     <h1>KYC Onboarding</h1>
     <div class="hero-meta">
       <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Senior Product Designer</span></div>
       <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2022 – Present</span></div>
       <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Fintech · B2B · Compliance</span></div>
+      <div class="meta-item"><span class="meta-label">Platforms</span><span class="meta-value">Desktop · Mobile web</span></div>
     </div>
   </div>
 
-  <div class="case-body">
+  <!-- CONTEXT -->
+  <div class="text-section">
+    <span class="section-label">Context</span>
+    <div class="section-content">
+      <h2>A fintech platform where onboarding is the only gate to revenue.</h2>
+      <p>Bancoli is a B2B fintech platform for international trade, serving small businesses and solopreneurs who need to move money across borders. Before anyone can send an invoice or receive a payment, they have to pass KYC (Know Your Customer). I owned the end-to-end UX of that experience.</p>
+    </div>
+  </div>
 
-    <!-- CONTEXT -->
-    <div class="text-section">
-      <span class="section-label">Context</span>
+  <!-- PROBLEM -->
+  <div class="text-section">
+    <span class="section-label">The Problem</span>
+    <div class="section-content">
+      <h2>A wall of questions, all at once.</h2>
+      <p>KYC meant dozens of required questions: business classification, company details, owners, identity and documents. The original flow showed them as one long form. Users saw everything at once, had no sense of progress, and dropped off before finishing.</p>
+      <p>And none of those questions could be removed. Every one existed because compliance required it. The solution had to live entirely in how we asked, not in what we asked.</p>
+    </div>
+  </div>
+
+  <!-- BEFORE VS AFTER -->
+  <div class="demo-section">
+    <p class="demo-label">Before vs. after</p>
+    <h3 class="demo-title">Same questions. Completely different feeling.</h3>
+    <div class="vs-grid">
+      <div>
+        <span class="vs-tag bad">Before: long form</span>
+        <div class="wf-frame">
+          <div class="wf-chrome"><i></i><i></i><i></i><span></span></div>
+          <div class="lf"><div class="lf-scroll" id="longForm"></div><div class="lf-fade"></div><div class="lf-badge">30+ fields · 1 page</div></div>
+        </div>
+        <p class="caption">Everything visible at once. Users had to scan, scroll and hunt for what was required.</p>
+      </div>
+      <div>
+        <span class="vs-tag good">After: one question at a time</span>
+        <div class="wf-frame"><div class="wf-chrome"><i></i><i></i><i></i><span></span></div><div class="wf-app" data-flow="compact"></div></div>
+        <p class="caption">One decision on screen. Pick an answer and the next question slides in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>"The challenge wasn't what to ask. It was how to ask it."</p>
+  </div>
+
+  <!-- APPROACH -->
+  <div class="text-section">
+    <span class="section-label">The Approach</span>
+    <div class="section-content">
+      <h2>Click, click, continue.</h2>
+      <p>Inspired by conversational forms like Typeform, I broke the wall of fields into small, single questions. Most of them became a single column of answers, so the answer is one click away. When a list was too long to show (industries, countries), it became an autocomplete dropdown: type a few letters and pick. Questions that allowed more than one answer used the same dropdown as a multi-select, with an OK button to confirm.</p>
+      <p>The key detail: as soon as you choose an option, the system scrolls to the next question on its own. No “Next” button to hunt for, no moving the mouse back across the screen. Users could also move with the keyboard. A thousand questions started to feel like a quick conversation.</p>
+    </div>
+  </div>
+
+  <!-- MAIN DEMO -->
+  <div class="demo-section">
+    <p class="demo-label">How it works</p>
+    <h3 class="demo-title">Every answer moves you forward automatically.</h3>
+    <div class="demo-grid">
+      <div class="wf-frame"><div class="wf-chrome"><i></i><i></i><i></i><span></span></div><div class="wf-app" data-flow="main"></div></div>
+      <ol class="steps-legend" id="legend">
+        <li data-phase="read"><span class="n">1</span><div><h5>One question on screen</h5><p>Short, focused, with the answers right below. Nothing else competing for attention.</p></div></li>
+        <li data-phase="select"><span class="n">2</span><div><h5>Select with one click</h5><p>Short lists are one column of answers. Long lists become an autocomplete dropdown: type a few letters, pick, done.</p></div></li>
+        <li data-phase="advance"><span class="n">3</span><div><h5>Auto-advance</h5><p>The next question slides in on its own. No Next button, no mouse travel.</p></div></li>
+        <li data-phase="reward"><span class="n">4</span><div><h5>Progress &amp; points</h5><p>The chapter bar fills and points add up with every answer.</p></div></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- CHAPTERS -->
+  <div class="demo-section">
+    <p class="demo-label">Structure</p>
+    <h3 class="demo-title">Grouped into chapters, so users always know where they are.</h3>
+    <div class="map">
+      <div class="map-node"><div class="c">1</div><h5>Business type</h5><p>Corporation, LLC or solopreneur</p></div>
+      <div class="map-node"><div class="c">2</div><h5>Company info</h5><p>Industry, activity, countries</p><span class="map-branch">Solopreneurs get a shorter path</span></div>
+      <div class="map-node"><div class="c">3</div><h5>Members</h5><p>Owners and representatives</p></div>
+      <div class="map-node"><div class="c">4</div><h5>Documents</h5><p>Company documents upload</p></div>
+      <div class="map-node"><div class="c">5</div><h5>Identity</h5><p>ID photo and selfie</p><span class="map-branch">Usually done on the phone</span></div>
+      <div class="map-node"><div class="c">✓</div><h5>Done</h5><p>Spend your points</p></div>
+    </div>
+  </div>
+
+  <!-- REWARDS -->
+  <div class="demo-section">
+    <div class="rw-grid">
       <div class="section-content">
-        <h2>A fintech platform where onboarding is the only gate to revenue.</h2>
-        <p>Bancoli is a B2B fintech platform built for international trade finance — serving small businesses and solopreneurs who need to move money across borders. I joined as Senior Product Designer and owned the end-to-end UX of the onboarding experience.</p>
+        <p class="demo-label">Rewards</p>
+        <h2>Turning compliance into a goal.</h2>
+        <p>Every answer earned points, shown live in the top corner. Completing a chapter added a bonus. At the end of KYC, users could spend those points inside Bancoli.</p>
+        <p>Combined with the chapter progress bar, it gave people a reason to keep going, and a small reward for finishing something nobody enjoys doing.</p>
+      </div>
+      <div class="rw-card" id="rewards">
+        <div class="rw-head"><span class="t">Your rewards</span><span class="wf-points"><span class="coin">B</span><b>Rewards</b></span></div>
+        <div class="rw-total"><span id="rwTotal">0</span><small>points</small></div>
+        <div class="rw-chapters">
+          <div class="rw-ch"><span class="dot"></span>Business type<span class="pts">+50</span></div>
+          <div class="rw-ch"><span class="dot"></span>Company info<span class="pts">+50</span></div>
+          <div class="rw-ch"><span class="dot"></span>Members<span class="pts">+50</span></div>
+          <div class="rw-ch"><span class="dot"></span>Documents &amp; identity<span class="pts">+100</span></div>
+        </div>
+        <div class="rw-spend">
+          <div class="rw-item"><div class="ic"></div><div class="l1"></div><div class="l2"></div></div>
+          <div class="rw-item"><div class="ic"></div><div class="l1"></div><div class="l2"></div></div>
+          <div class="rw-item"><div class="ic"></div><div class="l1"></div><div class="l2"></div></div>
+        </div>
+        <div class="rw-btn">Spend points</div>
       </div>
     </div>
+  </div>
 
-    <!-- BEFORE: placeholder -->
-    <div class="img-section">
-      <p class="img-section-label">Before — Original flow</p>
-      <div class="placeholder placeholder-full">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-        <span>Add before screenshot — long form view</span>
+  <!-- RESPONSIVE -->
+  <div class="demo-section">
+    <p class="demo-label">Responsive</p>
+    <h3 class="demo-title">Built for thumbs, too.</h3>
+    <div class="morph-wrap" id="morphWrap">
+      <div class="morph" id="morph">
+        <div class="wf-chrome m-chrome"><i></i><i></i><i></i><span></span></div>
+        <div class="m-notch"></div>
+        <div class="wf-app" id="morphApp"></div>
       </div>
-      <p class="img-caption">The original long-form implementation — all fields visible at once, no sense of progress.</p>
+      <div class="morph-label"><span class="on" data-m="desktop">Desktop</span><span data-m="mobile">Mobile</span></div>
     </div>
+    <p class="caption" style="text-align:center; max-width:560px; margin: 18px auto 0;">On mobile we dropped the progress bar to save space. The question and answers sit at the top, and the navigation buttons stay at the bottom, within thumb reach.</p>
+  </div>
 
-    <!-- PROBLEM -->
-    <div class="text-section">
-      <span class="section-label">The Problem</span>
-      <div class="section-content">
-        <h2>30+ required steps. No way to shorten them.</h2>
-        <p>To access Bancoli's financial services, every new user had to complete a KYC process before doing anything in the product. The flow covered business classification, company details, member information, identity verification, and document submission — over 30 steps in total.</p>
-        <p>The original implementation was a long-form experience. Users saw everything at once, had no sense of progress, and frequently dropped off before completing. For a product where onboarding is the only gate to revenue, that drop-off was a critical business problem.</p>
-      </div>
+  <!-- RESULT -->
+  <div class="result-section">
+    <p class="result-label">The Result</p>
+    <div class="result-grid">
+      <div class="result-item"><h3>0</h3><p>Compliance questions removed. The whole improvement came from how the questions were asked.</p></div>
+      <div class="result-item"><h3>↑</h3><p>Completion rates improved post-launch across both business and solopreneur segments.</p></div>
+      <div class="result-item"><h3>1 click</h3><p>Per answer for most questions, with auto-advance carrying users to the next step.</p></div>
     </div>
-
-    <!-- CALLOUT -->
-    <div class="callout">
-      <p>"The challenge wasn't what to ask — it was how to ask it."</p>
-    </div>
-
-    <!-- CONSTRAINT -->
-    <div class="text-section">
-      <span class="section-label">The Constraint</span>
-      <div class="section-content">
-        <h2>Every field existed because compliance required it.</h2>
-        <p>None of those 30+ steps could be removed. Working within a heavily regulated environment meant the design solution had to live entirely in the interaction layer — not in reducing scope. Any proposal had to be signed off by the compliance team before it could ship.</p>
-      </div>
-    </div>
-
-    <!-- APPROACH -->
-    <div class="text-section">
-      <span class="section-label">The Approach</span>
-      <div class="section-content">
-        <h2>One question at a time.</h2>
-        <p>Inspired by conversational UI patterns, the core idea was simple: instead of presenting the entire form at once, the interface would scroll to the next question automatically after each answer — keeping the user focused and the experience feeling fast even when it wasn't.</p>
-        <p>The flow was broken into clear chapters — business type, company information, member details, identity verification, and document upload — so users always knew where they were and what was coming. Users who self-identified as solopreneurs were routed through a shorter version of the company section, reducing unnecessary friction for that segment. The full experience was also designed for mobile, where the single-question pattern proved especially effective on smaller screens.</p>
-        <p>To reinforce a sense of forward momentum, we added a persistent progress bar throughout the flow — giving users a clear visual anchor of how far they'd come and what remained. The team also introduced a rewards mechanic that offered users incentives for completing each chapter, turning a compliance requirement into something closer to a goal-driven experience. Completion rates responded accordingly.</p>
-      </div>
-    </div>
-
-    <!-- PROGRESS + REWARDS placeholder -->
-    <div class="img-section">
-      <p class="img-section-label">Progress & Rewards</p>
-      <div class="grid-2">
-        <div>
-          <div class="placeholder placeholder-half">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><line x1="2" y1="12" x2="22" y2="12"/><polyline points="16 6 22 12 16 18"/></svg>
-            <span>Progress bar — mid flow</span>
-          </div>
-          <p class="img-caption">Persistent progress bar anchoring users through each chapter</p>
-        </div>
-        <div>
-          <div class="placeholder placeholder-half">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>Rewards mechanic — chapter complete</span>
-          </div>
-          <p class="img-caption">Chapter completion rewards — turning compliance into a goal-driven experience</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FLOW DIAGRAM placeholder -->
-    <div class="img-section">
-      <p class="img-section-label">Flow — Question by question</p>
-      <div class="placeholder placeholder-full">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><polyline points="12 8 12 12 14 14"/></svg>
-        <span>Add flow diagram — before vs. after</span>
-      </div>
-      <p class="img-caption">Conversational single-question flow vs. original long-form. Each answer triggers an auto-scroll to the next step.</p>
-    </div>
-
-    <!-- SCREENS: CHAPTERS -->
-    <div class="img-section">
-      <p class="img-section-label">Design — Flow chapters</p>
-      <div class="grid-3">
-        <div>
-          <div class="placeholder placeholder-third">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Business type selection</span>
-          </div>
-          <p class="img-caption">Step 1 — Business or solopreneur routing</p>
-        </div>
-        <div>
-          <div class="placeholder placeholder-third">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Company information</span>
-          </div>
-          <p class="img-caption">Step 2 — Company & member details</p>
-        </div>
-        <div>
-          <div class="placeholder placeholder-third">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Identity verification</span>
-          </div>
-          <p class="img-caption">Step 3 — KYC & document upload</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- MOBILE -->
-    <div class="img-section">
-      <p class="img-section-label">Mobile</p>
-      <div class="grid-2">
-        <div>
-          <div class="placeholder placeholder-half">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-            <span>Mobile — single question view</span>
-          </div>
-          <p class="img-caption">Single-question layout on mobile</p>
-        </div>
-        <div>
-          <div class="placeholder placeholder-half">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-            <span>Mobile — document upload</span>
-          </div>
-          <p class="img-caption">Document capture optimized for mobile camera</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- RESULT -->
-    <div class="result-section">
-      <p class="result-label">The Result</p>
-      <div class="result-grid">
-        <div class="result-item">
-          <h3>30+</h3>
-          <p>Required steps redesigned into a conversational single-question flow — without removing a single compliance field.</p>
-        </div>
-        <div class="result-item">
-          <h3>↑</h3>
-          <p>Completion rates improved significantly post-launch across both business and solopreneur segments.</p>
-        </div>
-        <div class="result-item">
-          <h3>3 yrs</h3>
-          <p>The flow has been running in production with no structural redesign — in a regulated industry where most onboarding flows don't survive 18 months.</p>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <footer>
     <span>© 2026 Liz Merino</span>
-    <span>Bancoli — KYC Onboarding</span>
+    <span>Bancoli · KYC Onboarding</span>
   </footer>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <div class="lb-bar">
-      <span class="lb-title" id="lbTitle"></span>
-      <button class="lb-close" onclick="closeLightbox()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="lb-body">
-      <img id="lbImg" src="" alt="" onclick="event.stopPropagation()">
-    </div>
-  </div>
-
   <script>
-    function openLightbox(src, title) {
-      document.getElementById('lbImg').src = src;
-      document.getElementById('lbTitle').textContent = title;
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
+  (function () {
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── Long form (before) ── */
+    const lf = document.getElementById('longForm');
+    if (lf) {
+      let html = '';
+      for (let s = 0; s < 6; s++) {
+        html += '<div class="lf-h"></div><div class="lf-grid">';
+        for (let f = 0; f < 6; f++) html += '<div class="lf-field"><div class="lb"></div><div class="in"></div></div>';
+        html += '</div>';
+      }
+      lf.innerHTML = html;
     }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
+
+    /* ── Question data (wireframe placeholders) ── */
+    const CHAPTERS = ['Business type', 'Company', 'Members', 'Identity'];
+    const INDUSTRIES = ['Agriculture', 'Apparel & Textiles', 'Consulting', 'E-commerce', 'Education', 'Food & Beverage', 'Healthcare', 'Logistics', 'Manufacturing', 'Marketing', 'Real Estate', 'Retail', 'Technology & Software', 'Travel'];
+    const COUNTRIES = ['Argentina', 'Brazil', 'Canada', 'Chile', 'China', 'Colombia', 'Germany', 'India', 'Mexico', 'Peru', 'Spain', 'United Kingdom', 'United States'];
+    // type 'choice'  → one column of options, auto-advance on click
+    // type 'auto'    → long list as autocomplete dropdown (single = auto-advance, multi = chips + OK)
+    const QUESTIONS = [
+      { ch: 0, type: 'choice', q: 'What type of business are you?', opts: ['Corporation', 'LLC', 'Solopreneur'], pick: 1 },
+      { ch: 0, type: 'choice', q: 'Where is your business registered?', opts: ['United States', 'Mexico', 'Other'], pick: 0 },
+      { ch: 1, type: 'auto', q: 'What’s your main industry?', list: INDUSTRIES, picks: [['Tec', 'Technology & Software']], ph: 'Type to search industries' },
+      { ch: 1, type: 'auto', multi: true, q: 'Which countries do you send payments to?', list: COUNTRIES, picks: [['Mex', 'Mexico'], ['Col', 'Colombia']], ph: 'Type to search countries' },
+      { ch: 2, type: 'choice', q: 'How many people own 25% or more?', opts: ['Just me', '2 – 3', '4 or more'], pick: 0 },
+      { ch: 3, type: 'choice', q: 'Which ID will you use?', opts: ['Passport', 'Driver’s license', 'National ID'], pick: 0 },
+    ];
+    const perCh = CHAPTERS.map((_, c) => QUESTIONS.filter((q) => q.ch === c).length);
+
+    const CHECK = '<svg class="check" viewBox="0 0 24 24" fill="none" stroke="#c4ef5f" stroke-width="3"><polyline points="5 12 10 17 19 7"/></svg>';
+    const ARROW = '<svg viewBox="0 0 24 24"><path d="M4 2 L4 19 L8.5 14.8 L11.6 21.5 L14.3 20.3 L11.2 13.7 L17.5 13.5 Z" fill="#1d2233" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+
+    const UP = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><polyline points="6 15 12 9 18 15"/></svg>';
+    const DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg>';
+    const OK = '<span class="wf-ok">OK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 12 10 17 19 7"/></svg></span>';
+
+    // Bottom row: hint on the left, arrows (+ OK when needed) always on the right
+    const navRow = (hintText, withOk) => `
+      <div class="wf-nav">
+        <span class="wf-hint">${hintText}</span>
+        <span class="wf-navbtns"><span class="wf-arrow">${UP}</span><span class="wf-arrow">${DOWN}</span>${withOk ? OK : ''}</span>
+      </div>`;
+
+    function build(app, mobile) {
+      const keys = 'ABCD';
+      let slides = QUESTIONS.map((d, i) => {
+        let body;
+        if (d.type === 'auto') {
+          body = `
+            <div class="wf-auto">
+              <div class="wf-input">
+                <span class="wf-chips"></span>
+                <span class="wf-typed"></span><span class="wf-caret"></span>
+                <span class="wf-ph">${d.ph}</span>
+                <svg class="wf-chev" viewBox="0 0 24 24" fill="none" stroke="#a9b3c7" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="wf-dd"></div>
+            </div>
+            ${navRow(d.multi ? 'Select all that apply, then press OK' : 'Long list? Just start typing', d.multi)}`;
+        } else {
+          body = `
+            <div class="wf-opts">
+              ${d.opts.map((o, k) => `<div class="wf-opt"><span class="wf-key">${keys[k]}</span>${o}${CHECK}</div>`).join('')}
+            </div>
+            ${navRow('Click an answer and we’ll move on automatically', false)}`;
+        }
+        return `
+        <div class="wf-slide"><div class="wf-q">
+          <div class="wf-num">${i + 1} →</div>
+          <h4>${d.q}</h4>
+          <div class="wf-sub"></div>
+          ${body}
+        </div></div>`;
+      }).join('');
+      slides += `
+        <div class="wf-slide"><div class="wf-done">
+          <div class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2c3a12" stroke-width="3"><polyline points="5 12 10 17 19 7"/></svg></div>
+          <h4>You’re verified!</h4>
+          <p>You earned <b class="wf-final">0</b> points</p>
+          <div class="wf-rewards">${'<div class="wf-reward"><div class="ic"></div><div class="l1"></div><div class="l2"></div></div>'.repeat(3)}</div>
+          <div class="wf-cta">Spend points</div>
+        </div></div>`;
+
+      app.innerHTML = `
+        <div class="wf-top">
+          <div class="wf-steps">${CHAPTERS.map((c) => `<div class="wf-step"><div class="track"><div class="fill"></div></div><div class="name">${c}</div></div>`).join('')}</div>
+          <div class="wf-points"><span class="coin">B</span><b class="wf-pts">0</b><span class="pts-word">pts</span><span class="wf-plus">+10</span></div>
+        </div>
+        <div class="wf-stage">
+          <div class="wf-track">${slides}</div>
+          <div class="wf-ripple"></div>
+          <div class="wf-cursor ${mobile ? 'tap' : ''}">${mobile ? '' : ARROW}</div>
+        </div>`;
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    class Flow {
+      constructor(app, onPhase) {
+        this.app = app;
+        this.mobile = app.dataset.mobile === '1';
+        this.onPhase = onPhase || (() => {});
+        build(app, this.mobile);
+        this.stage = app.querySelector('.wf-stage');
+        this.track = app.querySelector('.wf-track');
+        this.slides = [...app.querySelectorAll('.wf-slide')];
+        this.cursor = app.querySelector('.wf-cursor');
+        this.ripple = app.querySelector('.wf-ripple');
+        this.ptsEl = app.querySelector('.wf-pts');
+        this.plus = app.querySelector('.wf-plus');
+        this.fills = [...app.querySelectorAll('.wf-step .fill')];
+        this.steps = [...app.querySelectorAll('.wf-step')];
+        this.final = app.querySelector('.wf-final');
+        this.visible = false;
+        this.layout();
+        new ResizeObserver(() => this.layout()).observe(this.stage);
+        new IntersectionObserver((e) => {
+          this.visible = e[0].isIntersecting;
+          if (this.visible && this._resume) { this._resume(); this._resume = null; }
+        }, { threshold: 0.25 }).observe(app);
+        this.run();
+      }
+      layout() {
+        const h = this.stage.clientHeight;
+        this.slides.forEach((s) => (s.style.height = h + 'px'));
+        this.go(this.i || 0, true);
+      }
+      go(i, instant) {
+        this.i = i;
+        if (instant) this.track.style.transition = 'none';
+        this.track.style.transform = `translateY(${-i * this.stage.clientHeight}px)`;
+        if (instant) { this.track.offsetHeight; this.track.style.transition = ''; }
+      }
+      waitVisible() { return this.visible ? Promise.resolve() : new Promise((r) => (this._resume = r)); }
+      moveCursor(el) {
+        const s = this.stage.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        const x = r.left - s.left + Math.min(r.width * 0.3, 90);
+        const y = r.top - s.top + r.height * 0.55;
+        this.cursor.style.transform = `translate(${x}px, ${y}px)`;
+        this.ripple.style.left = x + 'px';
+        this.ripple.style.top = y + 'px';
+      }
+      setPoints(n) { this.ptsEl.textContent = n; }
+      progress(answered) {
+        let left = answered;
+        this.fills.forEach((f, c) => {
+          const done = Math.max(0, Math.min(perCh[c], left));
+          left -= perCh[c];
+          f.style.width = (done / perCh[c]) * 100 + '%';
+        });
+        const cur = QUESTIONS[Math.min(answered, QUESTIONS.length - 1)].ch;
+        this.steps.forEach((s, c) => s.classList.toggle('on', c <= cur));
+      }
+      click() {
+        this.ripple.classList.remove('go'); void this.ripple.offsetWidth; this.ripple.classList.add('go');
+      }
+      renderDD(auto, list, q, multiPicked) {
+        const dd = auto.querySelector('.wf-dd');
+        const items = list.filter((x) => x.toLowerCase().includes(q.toLowerCase()) && !multiPicked.includes(x)).slice(0, 4);
+        dd.innerHTML = items.map((x) => {
+          if (!q) return `<div class="wf-ddi">${x}</div>`;
+          const k = x.toLowerCase().indexOf(q.toLowerCase());
+          return `<div class="wf-ddi">${x.slice(0, k)}<b>${x.slice(k, k + q.length)}</b>${x.slice(k + q.length)}</div>`;
+        }).join('');
+        return [...dd.children];
+      }
+      async answerAuto(slide, d) {
+        const auto = slide.querySelector('.wf-auto');
+        const input = auto.querySelector('.wf-input');
+        const typed = auto.querySelector('.wf-typed');
+        const chips = auto.querySelector('.wf-chips');
+        const picked = [];
+        // Click the field → dropdown opens
+        this.moveCursor(input);
+        await sleep(800);
+        this.click();
+        auto.classList.add('open');
+        this.renderDD(auto, d.list, '', picked);
+        await sleep(600);
+        for (const [query, value] of d.picks) {
+          // Type a few letters → list filters
+          for (let c = 1; c <= query.length; c++) {
+            typed.textContent = query.slice(0, c);
+            auto.classList.add('typing');
+            this.renderDD(auto, d.list, query.slice(0, c), picked);
+            await sleep(170);
+          }
+          await sleep(300);
+          const items = this.renderDD(auto, d.list, query, picked);
+          const target = items.find((el) => el.textContent === value) || items[0];
+          this.onPhase('select');
+          this.moveCursor(target);
+          await sleep(700);
+          target.classList.add('hl');
+          this.click();
+          await sleep(250);
+          typed.textContent = '';
+          if (d.multi) {
+            picked.push(value);
+            chips.insertAdjacentHTML('beforeend', `<span class="wf-chip">${value}<i>×</i></span>`);
+            auto.classList.remove('typing');
+            auto.classList.add('has');
+            this.renderDD(auto, d.list, '', picked);
+            await sleep(500);
+          } else {
+            chips.innerHTML = `<span class="wf-val">${value}</span>`;
+            auto.classList.add('has');
+            auto.classList.remove('open', 'typing');
+          }
+        }
+        if (d.multi) {
+          auto.classList.remove('open', 'typing');
+          const ok = slide.querySelector('.wf-ok');
+          await sleep(300);
+          this.moveCursor(ok);
+          await sleep(700);
+          ok.classList.add('picked');
+          this.click();
+        }
+      }
+      reset() {
+        this.slides.forEach((s) => s.querySelectorAll('.picked, .hl').forEach((o) => o.classList.remove('picked', 'hl')));
+        this.slides.forEach((s) => s.querySelectorAll('.wf-auto').forEach((a) => {
+          a.classList.remove('open', 'typing', 'has');
+          a.querySelector('.wf-chips').innerHTML = '';
+          a.querySelector('.wf-typed').textContent = '';
+          a.querySelector('.wf-dd').innerHTML = '';
+        }));
+        this.setPoints(0);
+        this.progress(0);
+        this.go(0, true);
+        const s = this.stage.getBoundingClientRect();
+        this.cursor.style.transform = `translate(${s.width * 0.75}px, ${s.height * 0.85}px)`;
+      }
+      async run() {
+        this.reset();
+        if (reduce) return;
+        let pts = 0;
+        while (true) {
+          await this.waitVisible();
+          for (let i = 0; i < QUESTIONS.length; i++) {
+            this.onPhase('read');
+            await sleep(900);
+            const d = QUESTIONS[i];
+            if (d.type === 'auto') {
+              await this.answerAuto(this.slides[i], d);
+            } else {
+              const opt = this.slides[i].querySelectorAll('.wf-opt')[d.pick];
+              this.moveCursor(opt);
+              await sleep(800);
+              this.onPhase('select');
+              opt.classList.add('picked');
+              this.click();
+            }
+            await sleep(350);
+            this.onPhase('reward');
+            pts += 10; this.setPoints(pts);
+            this.plus.classList.remove('go'); void this.plus.offsetWidth; this.plus.classList.add('go');
+            this.progress(i + 1);
+            await sleep(500);
+            this.onPhase('advance');
+            this.go(i + 1);
+            await sleep(700);
+            await this.waitVisible();
+          }
+          // Completion
+          pts += 50; this.setPoints(pts);
+          if (this.final) this.final.textContent = pts;
+          const s = this.stage.getBoundingClientRect();
+          this.cursor.style.transform = `translate(${s.width * 0.75}px, ${s.height * 0.85}px)`;
+          this.onPhase('reward');
+          await sleep(2800);
+          this.track.style.opacity = 0;
+          await sleep(400);
+          this.reset(); pts = 0;
+          this.track.style.opacity = 1;
+          await sleep(300);
+        }
+      }
+    }
+
+    // Main demo drives the legend
+    const legend = [...document.querySelectorAll('#legend li')];
+    const setLegend = (p) => legend.forEach((li) => li.classList.toggle('on', li.dataset.phase === p));
+
+    document.querySelectorAll('.wf-app[data-flow]').forEach((app, idx) => {
+      const isMain = app.dataset.flow === 'main';
+      // Stagger start so demos aren't in lockstep
+      setTimeout(() => new Flow(app, isMain ? setLegend : null), idx * 350);
+    });
+
+    /* ── Desktop → mobile morph (one static screen) ── */
+    const morph = document.getElementById('morph');
+    if (morph) {
+      const wrap = document.getElementById('morphWrap');
+      const mApp = document.getElementById('morphApp');
+      const labels = [...document.querySelectorAll('.morph-label span')];
+      build(mApp, false);
+      const stage = mApp.querySelector('.wf-stage');
+      const track = mApp.querySelector('.wf-track');
+      const slides = [...mApp.querySelectorAll('.wf-slide')];
+      const SHOW = 1; // "Where is your business registered?"
+      slides[SHOW].querySelectorAll('.wf-opt')[0].classList.add('picked');
+      mApp.querySelector('.wf-pts').textContent = '10';
+      const fills = mApp.querySelectorAll('.wf-step .fill');
+      fills[0].style.width = '50%';
+      mApp.querySelector('.wf-step').classList.add('on');
+      mApp.querySelector('.wf-cursor').style.display = 'none';
+      track.style.transition = 'none';
+
+      const fit = () => {
+        const h = stage.clientHeight;
+        slides.forEach((s) => (s.style.height = h + 'px'));
+        track.style.transform = `translateY(${-SHOW * h}px)`;
+      };
+      new ResizeObserver(fit).observe(stage);
+
+      let mobile = false;
+      const size = () => {
+        const dw = Math.min(wrap.clientWidth, 860);
+        const mw = Math.min(290, dw);
+        if (mobile) { morph.style.width = mw + 'px'; morph.style.height = Math.round(mw * 18.5 / 9) + 'px'; }
+        else { morph.style.width = dw + 'px'; morph.style.height = Math.round(dw * 10 / 16) + 'px'; }
+        morph.classList.toggle('mobile', mobile);
+        labels.forEach((l) => l.classList.toggle('on', l.dataset.m === (mobile ? 'mobile' : 'desktop')));
+      };
+      size();
+      window.addEventListener('resize', size);
+
+      let mVisible = false, mResume = null;
+      new IntersectionObserver((e) => { mVisible = e[0].isIntersecting; if (mVisible && mResume) { mResume(); mResume = null; } }, { threshold: 0.3 }).observe(wrap);
+      if (!reduce) (async function loop() {
+        while (true) {
+          await sleep(2600);
+          if (!mVisible) await new Promise((r) => (mResume = r));
+          mobile = !mobile;
+          size();
+        }
+      })();
+    }
+
+    /* ── Rewards card animation ── */
+    const card = document.getElementById('rewards');
+    if (card && !reduce) {
+      const chs = [...card.querySelectorAll('.rw-ch')];
+      const items = [...card.querySelectorAll('.rw-item')];
+      const btn = card.querySelector('.rw-btn');
+      const total = document.getElementById('rwTotal');
+      const vals = [50, 50, 50, 100];
+      let visible = false, resume = null;
+      new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible && resume) { resume(); resume = null; } }, { threshold: 0.3 }).observe(card);
+      const waitVis = () => (visible ? Promise.resolve() : new Promise((r) => (resume = r)));
+      const countTo = async (from, to) => {
+        for (let v = from; v <= to; v += 5) { total.textContent = v; await sleep(18); }
+      };
+      (async function loop() {
+        while (true) {
+          chs.forEach((c) => c.classList.remove('done'));
+          items.forEach((i) => i.classList.remove('on'));
+          btn.classList.remove('on');
+          total.textContent = 0;
+          await waitVis();
+          await sleep(600);
+          let sum = 0;
+          for (let k = 0; k < chs.length; k++) {
+            chs[k].classList.add('done');
+            await countTo(sum, sum + vals[k]);
+            sum += vals[k];
+            await sleep(450);
+          }
+          for (const it of items) { it.classList.add('on'); await sleep(220); }
+          btn.classList.add('on');
+          await sleep(2600);
+        }
+      })();
+    }
+  })();
   </script>
 
 </body>

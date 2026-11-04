@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV · Liz Merino</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #0a0a0a; --white: #fff; --grey: #888; --line: #e8e8e8; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); }
+    nav .logo { font-size: 14px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: inherit; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
+    nav ul li a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.6; transition: opacity 0.2s; }
+    nav ul li a:hover, nav ul li a.active { opacity: 1; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 150px 48px 100px; }
+
+    /* Header */
+    .cv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    .cv-head h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; }
+    .cv-head .role { margin-top: 10px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
+    .cv-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--black); transition: background 0.2s, color 0.2s; }
+    .btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-dark:hover { background: #333; }
+    .btn-light { color: var(--black); }
+    .btn-light:hover { background: var(--black); color: var(--white); }
+
+    /* Sections */
+    .cv-section { display: grid; grid-template-columns: 180px 1fr; gap: 40px; padding: 48px 0; border-bottom: 1px solid var(--line); }
+    .cv-section:last-child { border-bottom: none; }
+    .cv-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); padding-top: 4px; }
+    .summary { font-size: 20px; font-weight: 300; line-height: 1.55; letter-spacing: -0.01em; }
+
+    /* Jobs */
+    .job { display: grid; grid-template-columns: 48px 1fr; gap: 20px; }
+    .job + .job { margin-top: 44px; }
+    .company-logo { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+    .logo-bancoli { background: #2b3f7e; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+    .logo-relabe  { background: #617af6; }
+    .logo-sulvo   { background: #1a3fb5; }
+    .logo-weex    { background: #4f12ff; }
+    .job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .job-company { font-size: 18px; font-weight: 500; }
+    .job-company a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .job-company a:hover { border-color: var(--black); }
+    .job-dates { font-size: 13px; color: var(--grey); white-space: nowrap; }
+    .job-title { margin-top: 4px; font-size: 14px; color: var(--grey); }
+    .job ul { margin-top: 16px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .job li { font-size: 15px; line-height: 1.65; color: #444; padding-left: 16px; position: relative; }
+    .job li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: #c9bdf5; }
+    .job li strong { font-weight: 500; color: var(--black); }
+    .case-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+    .case-link:hover { opacity: 1; }
+    .case-link svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+    /* Skills */
+    .skill-group + .skill-group { margin-top: 28px; }
+    .skill-group h3 { font-size: 13px; font-weight: 500; margin-bottom: 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { padding: 8px 14px; border-radius: 999px; background: #f4f2fb; font-size: 13px; color: #333; }
+
+    /* Education */
+    .edu { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+    .edu + .edu { margin-top: 18px; }
+    .edu-name { font-size: 16px; }
+    .edu-school { font-size: 14px; color: var(--grey); margin-top: 2px; }
+    .edu-year { font-size: 13px; color: var(--grey); }
+
+    footer { padding: 24px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; }
+    footer span { font-size: 12px; color: var(--grey); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; } nav ul { gap: 24px; }
+      main { padding: 120px 24px 60px; }
+      .cv-section { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; }
+      .summary { font-size: 18px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+    }
+
+    @media print {
+      nav, .cv-actions, .case-link, footer { display: none; }
+      main { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">Liz Merino</a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="cv.html" class="active">CV</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <header class="cv-head">
+      <div>
+        <h1>Elizabeth Merino Cabrera</h1>
+        <p class="role">Senior Product Designer</p>
+      </div>
+      <div class="cv-actions">
+        <a class="btn btn-dark" href="cv.pdf" download="Elizabeth-Merino-CV.pdf">
+          <svg viewBox="0 0 24 24"><path d="M12 4v11"/><polyline points="7 10 12 15 17 10"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
+          Download PDF
+        </a>
+        <a class="btn btn-light" href="https://www.linkedin.com/in/elizabeth-merino-48104859" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </header>
+
+    <section class="cv-section">
+      <div class="cv-label">Summary</div>
+      <p class="summary">Senior Product Designer with 8+ years of experience leading scalable digital products from concept to delivery. Expert in UX/UI, design systems, and cross-functional collaboration.</p>
+    </section>
+
+    <section class="cv-section">
+      <div class="cv-label">Experience</div>
+      <div>
+
+        <div class="job">
+          <div class="company-logo logo-bancoli">B</div>
+          <div>
+            <div class="job-top">
+              <div class="job-company"><a href="bancoli.html">Bancoli</a></div>
+              <div class="job-dates">2022 – Present</div>
+            </div>
+            <div class="job-title">Senior Product Designer</div>
+            <ul>
+              <li><strong>End-to-end ownership:</strong> Led the design of critical fintech flows including onboarding (KYC), dashboards, and administrative systems.</li>
+              <li><strong>System architecture:</strong> Built and maintained robust design systems to ensure product scalability.</li>
+              <li><strong>Collaboration:</strong> Optimized internal workflows by bridging communication between product and engineering teams.</li>
+            </ul>
+            <a class="case-link" href="bancoli.html">See case studies <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="company-logo logo-relabe">R</div>
+          <div>
+            <div class="job-top">
+              <div class="job-company"><a href="relabe-website.html">Relabe</a></div>
+              <div class="job-dates">2020 – 2022</div>
+            </div>
+            <div class="job-title">Brand Specialist &amp; UX/UI Designer</div>
+            <ul>
+              <li><strong>Strategic design:</strong> Led brand identity initiatives and high-fidelity UX/UI design, including complex user flows.</li>
+              <li><strong>Asset creation:</strong> Contributed to design systems and produced multi-channel marketing and social media assets.</li>
+            </ul>
+            <a class="case-link" href="relabe-website.html">See case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="company-logo logo-sulvo">S</div>
+          <div>
+            <div class="job-top">
+              <div class="job-company"><a href="sulvo.html">Sulvo</a></div>
+              <div class="job-dates">2018 – 2020</div>
+            </div>
+            <div class="job-title">Brand Specialist &amp; UI Designer</div>
+            <ul>
+              <li><strong>Visual identity:</strong> Developed comprehensive brand identities and UI component libraries.</li>
+              <li><strong>Marketing design:</strong> Produced visual assets for social media advertising and marketing campaigns.</li>
+            </ul>
+            <a class="case-link" href="sulvo.html">See case studies <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="company-logo logo-weex">W</div>
+          <div>
+            <div class="job-top">
+              <div class="job-company"><a href="weex-app.html">Weex</a></div>
+              <div class="job-dates">2016 – 2018</div>
+            </div>
+            <div class="job-title">UI Specialist &amp; Brand Designer</div>
+            <ul>
+              <li><strong>Innovation:</strong> Designed UI interfaces and product visuals as part of the Coca-Cola Founders startup initiative.</li>
+              <li><strong>Growth:</strong> Developed visuals for high-reach marketing campaigns and brand assets.</li>
+            </ul>
+            <a class="case-link" href="weex-app.html">See case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <div class="cv-label">Skills &amp; Tools</div>
+      <div>
+        <div class="skill-group">
+          <h3>Expertise</h3>
+          <div class="chips">
+            <span class="chip">Product Strategy</span>
+            <span class="chip">UX/UI Design</span>
+            <span class="chip">Design Systems</span>
+            <span class="chip">Interaction Design</span>
+            <span class="chip">Prototyping</span>
+            <span class="chip">Agile Leadership</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Design tools</h3>
+          <div class="chips">
+            <span class="chip">Figma</span>
+            <span class="chip">Builder.io</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Development &amp; AI tools</h3>
+          <div class="chips">
+            <span class="chip">Claude Code</span>
+            <span class="chip">Antigravity</span>
+            <span class="chip">Vercel</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <div class="cv-label">Education</div>
+      <div>
+        <div class="edu">
+          <div>
+            <div class="edu-name">UX Specialization</div>
+            <div class="edu-school">Dev.f</div>
+          </div>
+          <div class="edu-year">2020</div>
+        </div>
+        <div class="edu">
+          <div>
+            <div class="edu-name">Bachelor’s Degree in Graphic Design</div>
+          </div>
+          <div class="edu-year">2011</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© 2026 Liz Merino</span>
+    <span>Senior Product Designer</span>
+  </footer>
+
+</body>
+</html>
