@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Relabe · Liz Merino</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Volkhov:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&family=Volkhov:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --black: #0a0a0a; --white: #fff; --grey: #888; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif; --blue: #4355f3; }
@@ -84,6 +84,105 @@
     .type-sample { font-size: 64px; line-height: 1; letter-spacing: -0.02em; color: #4a4a4a; }
     .type-meta { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
     @media (max-width: 768px) { .swatches { grid-template-columns: repeat(3, 1fr); } .type-row { grid-template-columns: 1fr; } }
+
+    /* ═══ Relabe design system (live components) ═══ */
+    .ds { --rb: #617AF6; --rb-h: #3B4FAF; --ok: #69D24C; --ok-h: #05A300; --na: #C5D3DD; --na-h: #8D99A3; --warn: #F5A623; --err: #FF6464; --ink: #4A4A4A; --sub: #9B9B9B;
+          font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; max-width: 900px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 56px; }
+    .ds-group { position: relative; }
+    .ds-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font); font-size: 12px; font-weight: 600; color: #9b6cf5; margin-bottom: 18px; }
+    .ds-tag::before { content: '❖'; }
+    .ds-tag span { font-weight: 400; color: var(--grey); margin-left: 6px; }
+    .ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; }
+    .ds-row + .ds-row { margin-top: 22px; }
+    .ds-cell { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+    .ds-note { font-family: var(--font); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grey); }
+
+    .rb-btn { min-width: 150px; height: 50px; padding: 0 24px; border: none; border-radius: 4px; font: 700 16px/1 'Open Sans', Arial, sans-serif; color: #fff; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .rb-btn:active { transform: scale(0.98); }
+    .rb-btn.primary { background: var(--rb); } .rb-btn.primary:hover, .rb-btn.primary.is-hover { background: var(--rb-h); }
+    .rb-btn.success { background: var(--ok); } .rb-btn.success:hover, .rb-btn.success.is-hover { background: var(--ok-h); }
+    .rb-btn.disabled { background: var(--na); cursor: not-allowed; } .rb-btn.disabled.is-hover { background: var(--na-h); }
+    .rb-pill { height: 36px; padding: 0 22px; border-radius: 999px; border: 1.5px solid var(--ok); background: #fff; color: var(--ok); font: 400 16px/1 'Open Sans', Arial, sans-serif; cursor: pointer; transition: all 0.2s; }
+    .rb-pill:hover, .rb-pill.is-on { background: var(--ok-h); border-color: var(--ok-h); color: #fff; }
+    .rb-seg { height: 40px; padding: 0 28px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--ink); font: 400 17px/1 'Open Sans', Arial, sans-serif; cursor: pointer; transition: all 0.2s; }
+    .rb-seg:hover, .rb-seg.is-over { background: #EFF2FE; }
+    .rb-seg.is-sel { border-color: var(--rb); color: var(--rb); background: #fff; }
+
+    .rb-alert { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 520px; padding: 16px 22px; border-radius: 4px; font: 600 15px/1.35 'Open Sans', Arial, sans-serif; }
+    .rb-alert + .rb-alert { margin-top: 10px; }
+    .rb-alert i { width: 20px; height: 20px; border-radius: 50%; color: #fff; font: 800 13px/20px 'Open Sans', Arial, sans-serif; text-align: center; font-style: normal; flex-shrink: 0; }
+    .rb-alert.info { background: #EEF1FD; color: var(--rb); } .rb-alert.info i { background: var(--rb); }
+    .rb-alert.warn { background: #FFF8EC; color: var(--warn); } .rb-alert.warn i { background: var(--warn); }
+    .rb-alert.err { background: #FFEFEF; color: var(--err); } .rb-alert.err i { background: var(--err); }
+
+    .rb-card { position: relative; background: #fff; border-radius: 4px; box-shadow: 0 6px 24px -6px rgba(97,122,246,0.22); padding: 24px 28px; }
+    .rb-card.arrow-r::after { content: ''; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; margin-top: -7px; background: #fff; transform: rotate(45deg); box-shadow: 3px -3px 6px -3px rgba(97,122,246,0.18); }
+    .rb-card.arrow-b::after { content: ''; position: absolute; bottom: -7px; left: 50%; width: 14px; height: 14px; margin-left: -7px; background: #fff; transform: rotate(45deg); box-shadow: 3px 3px 6px -3px rgba(97,122,246,0.18); }
+    .rb-kv { display: grid; grid-template-columns: auto auto; gap: 4px 22px; font-size: 17px; color: var(--ink); }
+    .rb-kv b { font-weight: 400; color: var(--rb); }
+    .rb-help { max-width: 380px; font-size: 14px; line-height: 1.45; color: var(--sub); }
+    .ds-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; }
+    .rb-status { display: flex; align-items: center; gap: 22px; min-height: 120px; }
+    .rb-status .ic { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .rb-status .ic svg { width: 20px; height: 20px; }
+    .rb-status h5 { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .rb-status p { font-size: 13px; line-height: 1.5; color: var(--sub); }
+    .rb-status .amt { font-size: 18px; font-weight: 600; color: var(--ok); margin-bottom: 2px; }
+    .rb-status a { font-size: 13px; color: var(--rb); }
+    .ds-hint { font-family: var(--font); font-size: 12px; color: var(--grey); margin-top: 14px; }
+    @media (max-width: 768px) { .ds-cards { grid-template-columns: 1fr; } .rb-btn { min-width: 130px; } }
+
+    /* Atomic overview + foundations */
+    .atomic { display: flex; align-items: stretch; gap: 16px; margin-top: 44px; max-width: 900px; }
+    .atomic-step { flex: 1; border: 1px solid #e6e9f0; border-radius: 12px; padding: 22px; }
+    .atomic-step h5 { font-size: 15px; font-weight: 500; margin-top: 16px; }
+    .atomic-step p { font-size: 12px; color: var(--grey); margin-top: 4px; line-height: 1.5; }
+    .atomic-arrow { align-self: center; color: #c3c9d6; font-size: 20px; }
+    .atomic-vis { height: 56px; display: flex; align-items: center; gap: 8px; }
+    .atomic-vis i { width: 28px; height: 28px; border-radius: 6px; }
+    .atomic-vis b { font: 700 26px/1 'Open Sans', Arial, sans-serif; color: #4A4A4A; margin-left: 6px; }
+    .mini-btn { padding: 8px 14px; border-radius: 4px; background: #617AF6; color: #fff; font: 700 12px/1 'Open Sans', Arial, sans-serif; }
+    .mini-ic { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mini-ic svg { width: 14px; height: 14px; }
+    .mini-card { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 4px; box-shadow: 0 6px 18px -6px rgba(97,122,246,0.3); background: #fff; }
+    .mini-lines { display: flex; flex-direction: column; gap: 5px; }
+    .mini-lines u { display: block; width: 70px; height: 6px; border-radius: 3px; background: #dfe3ee; text-decoration: none; }
+    .mini-lines u + u { width: 46px; background: #eef1f6; }
+    .fd-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); margin: 48px 0 0; }
+    .type-scale { max-width: 900px; margin-top: 28px; border-top: 1px solid #eee; }
+    .ts-row { display: grid; grid-template-columns: 220px 1fr; align-items: baseline; gap: 24px; padding: 18px 0; border-bottom: 1px solid #eee; }
+    .ts-meta { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grey); }
+    .fd-grid { display: grid; grid-template-columns: 1.3fr 1.1fr 0.8fr; gap: 40px; max-width: 900px; }
+    .sp-row, .rd-row, .el-row { display: flex; align-items: flex-end; gap: 16px; margin-top: 22px; flex-wrap: wrap; }
+    .sp, .rd, .el { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .sp i { display: block; background: #D3DAFC; border-radius: 2px; }
+    .sp span, .rd span, .el span { font-size: 11px; color: var(--grey); }
+    .rd i { display: block; width: 48px; height: 48px; background: #EFF2FE; border: 1.5px solid #617AF6; }
+    .el i { display: block; width: 72px; height: 48px; border-radius: 4px; background: #fff; }
+    .rb-ic { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .rb-ic svg { width: 20px; height: 20px; }
+    @media (max-width: 768px) {
+      .atomic { flex-direction: column; } .atomic-arrow { transform: rotate(90deg); }
+      .ts-row { grid-template-columns: 1fr; gap: 6px; }
+      .fd-grid { grid-template-columns: 1fr; gap: 0; }
+    }
+
+    /* Concept: the macron */
+    .concept { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: stretch; max-width: 900px; margin: 44px auto 0; }
+    .concept-card { position: relative; border-radius: 14px; background: #F6F8FF; min-height: 320px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .concept-card.output { background: #617AF6; }
+    .concept-card.output img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .concept-label { position: absolute; top: 16px; left: 18px; z-index: 2; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
+    .concept-card.output .concept-label { color: rgba(255,255,255,0.85); }
+    .concept-arrow { align-self: center; color: #c3c9d6; font-size: 22px; }
+    .concept-word { font: 700 clamp(56px, 9vw, 104px)/1 Montserrat, 'Helvetica Neue', Arial, sans-serif; letter-spacing: -2px; color: #D9DFF8; display: flex; align-items: baseline; }
+    .concept-word .hl { position: relative; color: #617AF6; padding: 0 2px; }
+    .concept-word .hl i { position: absolute; left: 10%; right: 10%; top: -0.08em; height: 0.11em; border-radius: 0; background: #617AF6; }
+    .concept-word .hl::after { content: ''; position: absolute; left: -0.18em; right: -0.18em; top: -0.32em; bottom: -0.14em; border: 1.5px dashed #9b6cf5; border-radius: 10px; }
+    .concept-word .hl em { position: absolute; left: 50%; top: 100%; margin-top: 26px; transform: translateX(-50%); font: 600 12px/1 var(--font); font-style: normal; color: #9b6cf5; white-space: nowrap; letter-spacing: 0; }
+    .concept-word .hl em::before { content: '❖ '; }
+    .macron-cap { text-align: center; font-size: 13px; color: var(--grey); margin-top: 14px; }
+    @media (max-width: 768px) { .concept { grid-template-columns: 1fr; } .concept-arrow { transform: rotate(90deg); justify-self: center; } }
   </style>
 </head>
 <body>
@@ -123,23 +222,49 @@
 
   <div class="section">
     <p class="section-num">01 · Brand</p>
-    <h2 class="section-title">A brand with its own identity</h2>
+    <h2 class="section-title">One line that never stops</h2>
     <div class="section-body">
-      <p>Starting from Sulvo's visual DNA, I developed a brand language for Relabe that shared structural DNA (the grid, the typeface approach, the confidence) while introducing a distinct blue-dominant palette and a softer, more approachable tone. Where Sulvo felt technical and authoritative, Relabe needed to feel trusted and immediate.</p>
-      <p>The wordmark uses a customized letterform with a macron over the "a", a subtle typographic detail that gives the name a premium, fintech-grade feel without overdesigning it.</p>
+      <p>Everything in the Relabe brand starts with one detail: the line over the "a" in the wordmark. A macron stretches a sound, and that idea of something extended and continuous became the core of the identity.</p>
+      <p>Relabe exists so publishers get paid without waiting. We wanted the brand to feel like money flowing easily and without interruption, so that small line became the straight, continuous ribbons of the isometric world, linking screens, cards and charts in one uninterrupted flow.</p>
     </div>
-    <div class="img-full" onclick="openLightbox('img/relabe/website/hero.jpg', 'Brand')">
-      <img src="img/relabe/website/hero.jpg" alt="Relabe Brand">
+    <div class="concept">
+      <div class="concept-card">
+        <p class="concept-label">Concept</p>
+        <div class="concept-word"><span>Rel</span><span class="hl">a<i></i><em>The concept</em></span><span>be</span></div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-card output">
+        <p class="concept-label">Output</p>
+        <img src="img/relabe/website/ribbon-output.jpg" alt="Isometric ribbons from the Relabe illustrations">
+      </div>
+    </div>
+    <p class="macron-cap">The line over the "a" became the continuous isometric ribbons that carry cards, money and data through every illustration.</p>
+  </div>
+
+  <div class="section">
+    <p class="section-num">02 · Design System</p>
+    <h2 class="section-title">Built from the smallest pieces up</h2>
+    <div class="section-body">
+      <p>I organized the Relabe design system following an atomic approach. Foundations define the raw decisions: color, type, spacing, corners and depth. Atoms are the smallest usable UI pieces built on top of them, like buttons, tabs and status icons. Molecules combine atoms into small components with a single purpose, like an alert or a payment status card.</p>
+      <p>Working this way kept the platform consistent: changing a foundation updates every atom and molecule that uses it.</p>
+    </div>
+    <div class="atomic" aria-hidden="true">
+      <div class="atomic-step"><div class="atomic-vis"><i style="background:#617AF6"></i><i style="background:#D3DAFC"></i><i style="background:#69D24C"></i><b>Aa</b></div><h5>Foundations</h5><p>Color · Type · Spacing · Radius · Elevation</p></div>
+      <span class="atomic-arrow">→</span>
+      <div class="atomic-step"><div class="atomic-vis"><span class="mini-btn">Button</span><span class="mini-ic" style="background:#69D24C"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span></div><h5>Atoms</h5><p>Buttons · Toggles · Tabs · Icons</p></div>
+      <span class="atomic-arrow">→</span>
+      <div class="atomic-step"><div class="atomic-vis"><span class="mini-card"><span class="mini-ic" style="background:#69D24C"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span><span class="mini-lines"><u></u><u></u></span></span></div><h5>Molecules</h5><p>Alerts · Tooltips · Status cards</p></div>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-num">02 · Color &amp; Typography</p>
-    <h2 class="section-title">Visual system</h2>
+    <p class="section-num">03 · Foundations</p>
+    <h2 class="section-title">The raw decisions</h2>
     <div class="section-body">
-      <p>The primary palette is anchored by a strong cobalt blue, complemented by light blue-greys and high-contrast dark tones. Secondary colors (green, orange and yellow) serve functional roles across the UI: success states, warnings, and pending statuses.</p>
-      <p>Typography pairs Open Sans, in bold and regular, for the interface with Volkhov, a serif, for display headlines. The contrast between the two creates a clear hierarchy across both the marketing site and the platform.</p>
+      <p>The primary palette is anchored by Relabe Blue, complemented by light blue tints and high-contrast dark tones. Success, error and warning colors are reserved for status, so color always carries meaning. Typography pairs Open Sans for the interface with Volkhov, a serif, for display headlines.</p>
     </div>
+
+    <p class="fd-label">Color</p>
     <div class="swatches">
       <div class="swatch"><div class="swatch-color" style="background:#617AF6;"></div><span class="swatch-name">Relabe Blue</span><span class="swatch-hex">#617AF6</span></div>
       <div class="swatch"><div class="swatch-color" style="background:#D3DAFC;"></div><span class="swatch-name">Soft Blue</span><span class="swatch-hex">#D3DAFC</span></div>
@@ -153,26 +278,143 @@
       <div class="swatch"><div class="swatch-color" style="background:#FF6464;"></div><span class="swatch-name">Error</span><span class="swatch-hex">#FF6464</span></div>
       <div class="swatch"><div class="swatch-color" style="background:#FFB949;"></div><span class="swatch-name">Warning</span><span class="swatch-hex">#FFB949</span></div>
     </div>
+
+    <p class="fd-label">Typography</p>
     <div class="type-row">
       <div class="type-item"><span class="type-sample" style="font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:700;">Aa</span><span class="type-meta">Open Sans · Bold</span></div>
       <div class="type-item"><span class="type-sample" style="font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:400;">Aa</span><span class="type-meta">Open Sans · Regular</span></div>
       <div class="type-item"><span class="type-sample" style="font-family:'Volkhov',Georgia,serif;font-weight:700;">Aa</span><span class="type-meta">Volkhov · Display</span></div>
     </div>
+    <div class="type-scale">
+      <div class="ts-row"><span class="ts-meta">Display · Volkhov 40</span><span style="font:700 40px/1.1 'Volkhov',Georgia,serif;color:#4A4A4A">Get paid instantly</span></div>
+      <div class="ts-row"><span class="ts-meta">Heading · Open Sans Bold 24</span><span style="font:700 24px/1.2 'Open Sans',Arial,sans-serif;color:#4A4A4A">Your earnings</span></div>
+      <div class="ts-row"><span class="ts-meta">Body · Open Sans 16</span><span style="font:400 16px/1.5 'Open Sans',Arial,sans-serif;color:#4A4A4A">This is the full amount you can receive for this period.</span></div>
+      <div class="ts-row"><span class="ts-meta">Caption · Open Sans 13</span><span style="font:400 13px/1.5 'Open Sans',Arial,sans-serif;color:#9B9B9B">Payment request has been submitted.</span></div>
+    </div>
+
+    <div class="fd-grid">
+      <div>
+        <p class="fd-label">Spacing · 8pt grid</p>
+        <div class="sp-row"><div class="sp"><i style="width:4px;height:4px"></i><span>4</span></div><div class="sp"><i style="width:8px;height:8px"></i><span>8</span></div><div class="sp"><i style="width:16px;height:16px"></i><span>16</span></div><div class="sp"><i style="width:24px;height:24px"></i><span>24</span></div><div class="sp"><i style="width:32px;height:32px"></i><span>32</span></div><div class="sp"><i style="width:48px;height:48px"></i><span>48</span></div></div>
+      </div>
+      <div>
+        <p class="fd-label">Radius</p>
+        <div class="rd-row">
+          <div class="rd"><i style="border-radius:4px"></i><span>4 · Cards, buttons</span></div>
+          <div class="rd"><i style="border-radius:999px;width:84px"></i><span>Pill · Toggles</span></div>
+          <div class="rd"><i style="border-radius:50%"></i><span>Circle · Icons</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="fd-label">Elevation</p>
+        <div class="el-row">
+          <div class="el"><i style="box-shadow:none;border:1px solid #E6E9F0"></i><span>Flat</span></div>
+          <div class="el"><i style="box-shadow:0 6px 24px -6px rgba(97,122,246,0.25)"></i><span>Card</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="section">
-    <p class="section-num">03 · Components</p>
-    <h2 class="section-title">UI Design system</h2>
+    <p class="section-num">04 · Atoms</p>
+    <h2 class="section-title">The smallest usable pieces</h2>
     <div class="section-body">
-      <p>The component library covers the full spectrum of states the platform needs: buttons, inputs, warning banners, invoice status cards, and payment flows. Each component is designed to communicate financial status clearly (in progress, paid, not yet payable) so users always know where they stand without reading fine print.</p>
+      <p>Atoms take the foundations and turn them into interactive elements, each with every state defined: default, hover, selected and disabled. These are live components, so you can hover and click them.</p>
     </div>
-    <div class="img-full" onclick="openLightbox('img/relabe/website/components.jpg', 'Components')">
-      <img src="img/relabe/website/components.jpg" alt="UI Components">
+    <div class="ds" id="ds">
+
+      <div class="ds-group">
+        <p class="ds-tag">Button<span>Primary · Success · Disabled</span></p>
+        <div class="ds-row">
+          <div class="ds-cell"><button class="rb-btn primary">Native</button><span class="ds-note">Default</span></div>
+          <div class="ds-cell"><button class="rb-btn primary is-hover">Hover</button><span class="ds-note">Hover</span></div>
+          <div class="ds-cell"><button class="rb-btn success">Confirm</button><span class="ds-note">CTA</span></div>
+          <div class="ds-cell"><button class="rb-btn success is-hover">Hover</button><span class="ds-note">CTA hover</span></div>
+        </div>
+        <div class="ds-row">
+          <div class="ds-cell"><button class="rb-btn disabled">Unavailable</button><span class="ds-note">Disabled</span></div>
+          <div class="ds-cell"><button class="rb-btn disabled is-hover">Hover</button><span class="ds-note">Disabled hover</span></div>
+        </div>
+        <p class="ds-hint">These are live components: hover over them.</p>
+      </div>
+
+      <div class="ds-group">
+        <p class="ds-tag">Pill toggle<span>Add to payment</span></p>
+        <div class="ds-row">
+          <div class="ds-cell"><button class="rb-pill" data-toggle>Add to payment</button><span class="ds-note">Off</span></div>
+          <div class="ds-cell"><button class="rb-pill is-on" data-toggle>Added to payment</button><span class="ds-note">On</span></div>
+        </div>
+      </div>
+
+      <div class="ds-group">
+        <p class="ds-tag">Tab<span>Normal · Over · Selected</span></p>
+        <div class="ds-row" id="dsTabs">
+          <button class="rb-seg">Normal</button>
+          <button class="rb-seg is-over">Over</button>
+          <button class="rb-seg is-sel">Selected</button>
+        </div>
+      </div>
+
+      <div class="ds-group">
+        <p class="ds-tag">Status icon<span>One shape, five states</span></p>
+        <div class="ds-row">
+          <div class="ds-cell"><span class="rb-ic" style="background:#FFB949"><svg viewBox="0 0 24 24" fill="#fff"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></span><span class="ds-note">Pending</span></div>
+          <div class="ds-cell"><span class="rb-ic" style="background:#69D24C"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span><span class="ds-note">Payable</span></div>
+          <div class="ds-cell"><span class="rb-ic" style="background:#617AF6"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><polyline points="12 6 12 12 16 15"/></svg></span><span class="ds-note">In progress</span></div>
+          <div class="ds-cell"><span class="rb-ic" style="background:#C5D3DD"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="ds-note">Paid</span></div>
+          <div class="ds-cell"><span class="rb-ic" style="background:#FF6464"><svg viewBox="0 0 24 24" fill="#fff"><rect x="10.6" y="5" width="2.8" height="9" rx="1.4"/><circle cx="12" cy="18" r="1.6"/></svg></span><span class="ds-note">Error</span></div>
+        </div>
+      </div>
+
+    </div>
+    <script>
+      // Pill toggles and tabs respond to clicks, like the real product
+      document.querySelectorAll('#ds [data-toggle]').forEach(function (b) {
+        b.addEventListener('click', function () { b.classList.toggle('is-on'); b.textContent = b.classList.contains('is-on') ? 'Added to payment' : 'Add to payment'; });
+      });
+      var tabs = document.querySelectorAll('#dsTabs .rb-seg');
+      tabs.forEach(function (t) { t.addEventListener('click', function () { tabs.forEach(function (x) { x.classList.remove('is-sel', 'is-over'); }); t.classList.add('is-sel'); }); });
+    </script>
+  </div>
+
+  <div class="section">
+    <p class="section-num">05 · Molecules</p>
+    <h2 class="section-title">Atoms working together</h2>
+    <div class="section-body">
+      <p>Molecules combine atoms into components with a single job. A status card is just a status icon, a title and a line of body text, yet together they tell publishers exactly where their money is: not yet payable, payable, in progress or paid.</p>
+    </div>
+    <div class="ds">
+
+      <div class="ds-group">
+        <p class="ds-tag">Alert<span>Icon + Message</span></p>
+        <div class="rb-alert info"><i>!</i>Your payout is being reviewed.</div>
+        <div class="rb-alert warn"><i>!</i>Some ad requests are still pending.</div>
+        <div class="rb-alert err"><i>!</i>We couldn’t verify your bank account.</div>
+      </div>
+
+      <div class="ds-group">
+        <p class="ds-tag">Tooltip<span>Label + Value · Definition</span></p>
+        <div class="ds-row" style="align-items:flex-start; gap:28px;">
+          <div class="rb-card arrow-r"><div class="rb-kv"><span>Cost vCPM:</span><b>$1,324.00</b><span>Ad requests:</span><b>323</b></div></div>
+          <div class="rb-card arrow-b"><p class="rb-help">Ad requests: number of times an ad was called.<br>Impressions: number of times a Sulvo-powered ad was shown.</p></div>
+        </div>
+      </div>
+
+      <div class="ds-group">
+        <p class="ds-tag">Status card<span>Status icon + Title + Body</span></p>
+        <div class="ds-cards">
+          <div class="rb-card arrow-r rb-status"><span class="ic" style="background:#FFB949"><svg viewBox="0 0 24 24" fill="#fff"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></span><div><h5>Not yet payable</h5><p>This payment is not yet payable.</p></div></div>
+          <div class="rb-card arrow-r rb-status"><span class="ic" style="background:#69D24C"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span><div><h5>Payable</h5><div class="amt">$210,000</div><p>This is the full amount you can receive for this period.</p></div></div>
+          <div class="rb-card arrow-r rb-status"><span class="ic" style="background:#617AF6"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><polyline points="12 6 12 12 16 15"/></svg></span><div><h5>In progress</h5><p>Payment request has been submitted and is being processed.</p></div></div>
+          <div class="rb-card arrow-r rb-status"><span class="ic" style="background:#C5D3DD"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><div><h5>Paid</h5><a href="#" onclick="return false">How do I identify the payment?</a></div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <div class="section">
-    <p class="section-num">04 · Illustration System</p>
+    <p class="section-num">06 · Illustration System</p>
     <h2 class="section-title">Isometric illustration style</h2>
     <div class="section-body">
       <p>To give the platform warmth and visual personality, I developed a library of isometric 3D illustrations. The style references architectural and urban environments (cities, buildings, infrastructure) as a metaphor for the publishing ecosystem Relabe operates within. The soft blue-purple palette ties directly back to the brand, keeping illustrations feeling native rather than generic.</p>
@@ -183,7 +425,7 @@
   </div>
 
   <div class="section" style="border-bottom:none;">
-    <p class="section-num">05 · Motion Graphics</p>
+    <p class="section-num">07 · Motion Graphics</p>
     <h2 class="section-title">Animated 3D elements</h2>
     <div class="section-body">
       <p>Key brand moments use animated isometric 3D graphics: looping compositions that bring the illustration system to life across the website and platform. Each animation follows the same visual language: translucent geometry, soft blue-purple gradients, and smooth easing that feels considered rather than decorative.</p>
