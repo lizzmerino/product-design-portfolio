@@ -183,6 +183,14 @@
     .concept-word .hl em::before { content: '❖ '; }
     .macron-cap { text-align: center; font-size: 13px; color: var(--grey); margin-top: 14px; }
     @media (max-width: 768px) { .concept { grid-template-columns: 1fr; } .concept-arrow { transform: rotate(90deg); justify-self: center; } }
+
+    /* Website video in a browser frame */
+    .browser { max-width: 1000px; margin: 40px auto 0; border: 1px solid #e6ebf3; border-radius: 14px; overflow: hidden; background: #fff; }
+    .browser-bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 16px; border-bottom: 1px solid #e6ebf3; background: #fafbfd; }
+    .browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #dfe4ee; }
+    .browser-bar span { margin-left: 14px; padding: 4px 14px; border-radius: 999px; background: #eef1f7; font-size: 11px; color: #9aa4b8; letter-spacing: 0.02em; }
+    .browser video { display: block; width: 100%; aspect-ratio: 1600 / 732; object-fit: cover; object-position: top; background: #fff; }
+    .video-cap { text-align: center; font-size: 13px; color: var(--grey); margin-top: 14px; }
   </style>
 </head>
 <body>
@@ -424,7 +432,7 @@
     </div>
   </div>
 
-  <div class="section" style="border-bottom:none;">
+  <div class="section">
     <p class="section-num">07 · Motion Graphics</p>
     <h2 class="section-title">Animated 3D elements</h2>
     <div class="section-body">
@@ -436,6 +444,20 @@
       <div class="gif-cell"><img src="img/relabe/website/anim-3.gif" alt="3D tower animation"></div>
       <div class="gif-cell"><img src="img/relabe/website/anim-4.gif" alt="3D chart animation"></div>
     </div>
+  </div>
+
+  <!-- WEBSITE -->
+  <div class="section" style="border-bottom:none;">
+    <p class="section-num">08 · Website</p>
+    <h2 class="section-title">The flow, live on the website</h2>
+    <div class="section-body">
+      <p>The marketing site brought the whole system together. Each benefit is paired with an isometric scene where the ribbons carry cards, money and data, and the blue palette leads visitors down the page to a single action: requesting an account.</p>
+    </div>
+    <div class="browser">
+      <div class="browser-bar"><i></i><i></i><i></i><span>relabe.com</span></div>
+      <video src="img/relabe/website/website.mp4" poster="img/relabe/website/website-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <p class="video-cap">Scrolling through the Relabe website</p>
   </div>
 
   <footer>
